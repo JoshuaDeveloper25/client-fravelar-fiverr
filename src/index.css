@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*::selection {
+  background: #0070b8;
+  color: #ffffff;
+}
+
+@layer components {
+  .container-page {
+    @apply max-w-[1200px] mx-auto px-3;
+  }
+
+  .animation-fade {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  .blue-focus {
+    @apply border border-[#86B7FE] rounded outline-0 shadow-[0_0_0_.15rem_rgba(13,110,253,.25)];
+  }
+}
+
+.carousel-header-inicio > article > .slick-slider > .slick-prev:before,
+.carousel-header-inicio > article > .slick-slider > .slick-next:before {
+  color: white !important;
+  font-size: 1.8rem;
+}
+
+.carousel-header-inicio > article > .slick-slider > .slick-prev {
+  left: 1rem;
+  z-index: 9999;
+}
+
+.carousel-header-inicio > article > .slick-slider > .slick-next {
+  right: 1rem;
+  z-index: 9999;
+}
+
+.shrink {
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.shrink img {
+  width: 100%;
+  transition: 0.5s all ease-in-out;
+}
+
+.shrink:hover img {
+  transform: scale(1.2);
+}
