@@ -4,19 +4,18 @@ import { getError } from '../../../utils/getError';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
 import axios from 'axios';
+import TextRich from './TextRich';
 import InputBox from '../../../components/InputBox';
 
 const Header = () => {
   const [showModal, setShowModal] = useState(false);
+  const [richTxtValue, setRichTxtValue] = useState('');
 
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: (instructorInfo) =>
-      axios.post(
-        `${import.meta.env.VITE_BASE_URL}/instructors/`,
-        instructorInfo
-      ),
+    mutationFn: (dataBody) =>
+      axios.post(`${import.meta.env.VITE_BASE_URL}/news/`, dataBody),
 
     onSuccess: () => {
       queryClient.invalidateQueries(['instructors']);
@@ -37,8 +36,8 @@ const Header = () => {
 
     console.log(e.target.uploadImages.files[0]);
     data.append('uploadImages', e.target.uploadImages.files[0]);
-    data.append('instructorName', e.target.instructorName.value);
-    data.append('description', e.target.instructorDesc.value);
+    data.append('newsTitle', e.target.newsTitle.value);
+    data.append('newsDescription', richTxtValue);
 
     mutate(data);
   };
@@ -48,34 +47,30 @@ const Header = () => {
       <ModalComponent
         setShowModal={setShowModal}
         showModal={showModal}
-        textBtn={'Crear Instructor'}
-        titleModal={'Crear Instructor'}
+        textBtn={'Crear Noticia'}
+        titleModal={'Crear Noticia'}
       >
         <form onSubmit={handleSubmit}>
           <div className="px-3">
             <InputBox
               propInput={{
-                name: 'instructorName',
+                name: 'newsTitle',
                 required: true,
                 disabled: isPending,
               }}
-              labelTitle={'Nombre'}
+              labelTitle={'Titulo'}
             />
 
-            <InputBox
-              propInput={{
-                name: 'instructorDesc',
-                required: true,
-                disabled: isPending,
-              }}
-              labelTitle={'Descripción'}
-            />
+            <div className='mb-10'>
+              <TextRich value={richTxtValue} setValue={setRichTxtValue} />
+            </div>
 
             <InputBox
               propInput={{
                 name: 'uploadImages',
                 required: true,
                 accept: 'image/*',
+                disabled: isPending,
               }}
               labelTitle={'Subir imagen'}
               type="file"

@@ -7,29 +7,26 @@ import { useState } from 'react';
 import axios from 'axios';
 import { getError } from '../../utils/getError';
 import ModalComponent from '../../components/ModalComponent';
-
-import { MdModeEdit } from 'react-icons/md';
-import { MdDelete } from 'react-icons/md';
+import TextRich from './components/TextRich';
+import { MdDelete, MdModeEdit } from 'react-icons/md';
 import InputBox from '../../components/InputBox';
 import CellPreviewImg from '../../components/CellPreviewImg';
 
-const ManageInstructors = () => {
+const ManageNews = () => {
   const columns = [
     {
-      header: 'Name',
-      accessorKey: 'instructorName',
+      header: 'Nombre',
+      accessorKey: 'newsTitle',
     },
 
-    {
-      header: 'Description',
-      accessorKey: 'description',
-    },
+    // {
+    //   header: 'Descricion',
+    //   accessorKey: 'newsDescription',
+    // },
 
     {
       header: 'Imagen del Anuncio',
-      cell: (info) => (
-        <CellPreviewImg dataRow={info?.row?.original} endpoint="instructors" />
-      ),
+      cell: (info) => <CellPreviewImg dataRow={info?.row?.original} />,
     },
 
     {
@@ -39,10 +36,10 @@ const ManageInstructors = () => {
   ];
 
   const { data, isLoading } = useQuery({
-    queryKey: ['instructors'],
+    queryKey: ['news'],
     queryFn: async () =>
       await axios
-        ?.get(`${import.meta.env.VITE_BASE_URL}/instructors/`)
+        ?.get(`${import.meta.env.VITE_BASE_URL}/news/`)
         .then((res) => res.data),
   });
 
@@ -64,18 +61,19 @@ const ManageInstructors = () => {
 
 const CellCustomInstructor = ({ dataRow }) => {
   const [showModal, setShowModal] = useState(false);
+  const [richTxtValue, setRichTxtValue] = useState(dataRow?.newsDescription);
 
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
     mutationFn: (instructorInfo) =>
       axios.put(
-        `${import.meta.env.VITE_BASE_URL}/instructors/${dataRow?._id}`,
+        `${import.meta.env.VITE_BASE_URL}/news/${dataRow?._id}`,
         instructorInfo
       ),
 
     onSuccess: () => {
-      queryClient.invalidateQueries(['instructors']);
+      queryClient.invalidateQueries(['news']);
       toast.success(`Exitosamente editado!`);
       setShowModal(!showModal);
     },
@@ -89,13 +87,13 @@ const CellCustomInstructor = ({ dataRow }) => {
   const deleteMutation = useMutation({
     mutationFn: (instructorInfo) =>
       axios.delete(
-        `${import.meta.env.VITE_BASE_URL}/instructors/${dataRow?._id}`,
+        `${import.meta.env.VITE_BASE_URL}/news/${dataRow?._id}`,
         instructorInfo
       ),
 
     onSuccess: () => {
-      queryClient.invalidateQueries(['instructors']);
-      toast.success(`Exitosamente editado!`);
+      queryClient.invalidateQueries(['news']);
+      toast.success(`Exitosamente Eliminado!`);
     },
 
     onError: (err) => {
@@ -120,8 +118,8 @@ const CellCustomInstructor = ({ dataRow }) => {
     const data = new FormData(e.target);
 
     const dataSend = {
-      instructorName: data.get('instructorName'),
-      description: data.get('instructorDesc'),
+      newsTitle: data.get('newsTitle'),
+      newsDescription: richTxtValue,
     };
 
     mutate(dataSend);
@@ -151,30 +149,25 @@ const CellCustomInstructor = ({ dataRow }) => {
       <ModalComponent
         setShowModal={setShowModal}
         showModal={showModal}
-        titleModal={'Editar Instructor'}
+        titleModal={'Editar Noticia'}
         showBtn={false}
       >
         <form onSubmit={handleSubmit}>
           <div className="px-3">
             <InputBox
               propInput={{
-                name: 'instructorName',
+                name: 'newsTitle',
                 required: true,
-                defaultValue: dataRow?.instructorName,
                 disabled: isDisabled,
+                defaultValue: dataRow?.newsTitle,
               }}
-              labelTitle={'Nombre'}
+              labelTitle={'Titulo'}
             />
 
-            <InputBox
-              propInput={{
-                name: 'instructorDesc',
-                required: true,
-                defaultValue: dataRow?.description,
-                disabled: isDisabled,
-              }}
-              labelTitle={'Descripción'}
-            />
+            <div className="mb-10">
+              <TextRich value={richTxtValue} setValue={setRichTxtValue} />
+            </div>
+            
           </div>
           <button className="btn w-full" disabled={isDisabled}>
             Editar
@@ -185,4 +178,4 @@ const CellCustomInstructor = ({ dataRow }) => {
   );
 };
 
-export default ManageInstructors;
+export default ManageNews;

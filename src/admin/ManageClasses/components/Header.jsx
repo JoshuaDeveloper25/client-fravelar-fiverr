@@ -14,12 +14,12 @@ const Header = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: (instructorInfo) =>
       axios.post(
-        `${import.meta.env.VITE_BASE_URL}/instructors/`,
+        `${import.meta.env.VITE_BASE_URL}/class-package/`,
         instructorInfo
       ),
 
     onSuccess: () => {
-      queryClient.invalidateQueries(['instructors']);
+      queryClient.invalidateQueries(['classes']);
       toast.success(`Exitosamente creado!`);
       setShowModal(!showModal);
     },
@@ -33,14 +33,16 @@ const Header = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = new FormData();
+    const data = new FormData(e.target);
 
-    console.log(e.target.uploadImages.files[0]);
-    data.append('uploadImages', e.target.uploadImages.files[0]);
-    data.append('instructorName', e.target.instructorName.value);
-    data.append('description', e.target.instructorDesc.value);
+    const dataSend = {
+      packageName: data.get('packageName'),
+      packagePrice: data.get('packagePrice'),
+      packageQuantity: data.get('packageQuantity'),
+      packageDuration: data.get('packageDuration'),
+    };
 
-    mutate(data);
+    mutate(dataSend);
   };
 
   return (
@@ -48,37 +50,28 @@ const Header = () => {
       <ModalComponent
         setShowModal={setShowModal}
         showModal={showModal}
-        textBtn={'Crear Instructor'}
-        titleModal={'Crear Instructor'}
+        textBtn={'Crear Paquete'}
+        titleModal={'Crear Paquete'}
       >
         <form onSubmit={handleSubmit}>
           <div className="px-3">
             <InputBox
-              propInput={{
-                name: 'instructorName',
-                required: true,
-                disabled: isPending,
-              }}
+              propInput={{ name: 'packageName', required: true, disabled: isPending }}
               labelTitle={'Nombre'}
             />
 
             <InputBox
-              propInput={{
-                name: 'instructorDesc',
-                required: true,
-                disabled: isPending,
-              }}
-              labelTitle={'Descripción'}
+              propInput={{ name: 'packagePrice', required: true, disabled: isPending }}
+              labelTitle={'Precio'}
             />
 
             <InputBox
-              propInput={{
-                name: 'uploadImages',
-                required: true,
-                accept: 'image/*',
-              }}
-              labelTitle={'Subir imagen'}
-              type="file"
+              propInput={{ name: 'packageQuantity', required: true, disabled: isPending }}
+              labelTitle={'Cantidad de Clases'}
+            />
+            <InputBox
+              propInput={{ name: 'packageDuration', required: true, disabled: isPending }}
+              labelTitle={'Duración de Dias'}
             />
           </div>
           <button className="btn w-full" disabled={isPending}>

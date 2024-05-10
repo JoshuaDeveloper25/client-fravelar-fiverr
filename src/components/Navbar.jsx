@@ -1,11 +1,12 @@
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import logoNavbar from "../images/cycle-logo4.png";
-import { GiHamburgerMenu } from "react-icons/gi";
-import AppContext from "../context/AppProvider";
-import { useContext, useState } from "react";
-import { createPortal } from "react-dom";
-import { FaUser } from "react-icons/fa";
-import { toast } from "react-toastify";
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import logoNavbar from '../images/cycle-logo4.png';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import AppContext from '../context/AppProvider';
+import { useContext, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { FaUser } from 'react-icons/fa';
+import { toast } from 'react-toastify';
+import ClassQuantity from './ClassQuantity';
 
 const Navbar = () => {
   const { userInfo, setUserInfo } = useContext(AppContext);
@@ -15,8 +16,8 @@ const Navbar = () => {
   const signOut = () => {
     navigate(`/`);
     setUserInfo({});
-    localStorage.removeItem("userInfo");
-    toast.success("Sesión cerrada exitosamente!");
+    localStorage.removeItem('userInfo');
+    toast.success('Sesión cerrada exitosamente!');
   };
 
   return (
@@ -25,7 +26,7 @@ const Navbar = () => {
         <div className="md:flex hidden justify-between gap-3 text-white">
           <div className="flex items-center gap-14">
             <div>
-              <Link>
+              <Link to={'/inicio'}>
                 <img
                   loading="lazy"
                   decoding="async"
@@ -37,11 +38,11 @@ const Navbar = () => {
 
             <div className="space-x-6">
               <NavLink
-                to={`/reservar`}
+                to={`/calendario`}
                 className={({ isActive }) =>
                   isActive
-                    ? "text-sm text-primary-color font-bold animation-fade"
-                    : "text-sm text-black hover:text-primary-color animation-fade"
+                    ? 'text-sm text-primary-color font-bold animation-fade'
+                    : 'text-sm text-black hover:text-primary-color animation-fade'
                 }
               >
                 Reservar
@@ -50,8 +51,8 @@ const Navbar = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? "text-sm text-primary-color font-bold animation-fade"
-                    : "text-sm text-black hover:text-primary-color animation-fade"
+                    ? 'text-sm text-primary-color font-bold animation-fade'
+                    : 'text-sm text-black hover:text-primary-color animation-fade'
                 }
                 to={`/comprar-clases`}
               >
@@ -61,8 +62,8 @@ const Navbar = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? "text-sm text-primary-color font-bold animation-fade"
-                    : "text-sm text-black hover:text-primary-color animation-fade"
+                    ? 'text-sm text-primary-color font-bold animation-fade'
+                    : 'text-sm text-black hover:text-primary-color animation-fade'
                 }
                 to={`/instructores`}
               >
@@ -72,8 +73,8 @@ const Navbar = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? "text-sm text-primary-color font-bold animation-fade"
-                    : "text-sm text-black hover:text-primary-color animation-fade"
+                    ? 'text-sm text-primary-color font-bold animation-fade'
+                    : 'text-sm text-black hover:text-primary-color animation-fade'
                 }
                 to={`/quienes-somos`}
               >
@@ -83,8 +84,8 @@ const Navbar = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? "text-sm text-primary-color font-bold animation-fade"
-                    : "text-sm text-black hover:text-primary-color animation-fade"
+                    ? 'text-sm text-primary-color font-bold animation-fade'
+                    : 'text-sm text-black hover:text-primary-color animation-fade'
                 }
                 to={`/contacto`}
               >
@@ -95,15 +96,18 @@ const Navbar = () => {
 
           <div className="flex items-center justify-center">
             <div className="group relative">
-              <div className="flex items-center cursor-pointer justify-center space-x-3 bg-primary-color rounded-full h-10 w-10">
-                <a className="menu-hover">
-                  <FaUser className="text-white" />
-                </a>
+              <div className="flex gap-5 items-center">
+                <ClassQuantity />
+                <div className="flex items-center cursor-pointer justify-center space-x-3 bg-primary-color rounded-full h-10 w-10">
+                  <a className="menu-hover">
+                    <FaUser className="text-white" />
+                  </a>
+                </div>
               </div>
 
               <div
                 className={`${
-                  userInfo?.token ? null : "w-32"
+                  userInfo?.token ? null : 'w-32'
                 } invisible absolute right-0 z-50 py-2 px-2 border rounded  shadow-3xl group-hover:visible bg-white`}
               >
                 {userInfo?.token ? (
@@ -130,7 +134,7 @@ const Navbar = () => {
                     </Link>
                   </>
                 )}
-                {userInfo?.role === "admin" ? (
+                {userInfo?.role === 'admin' ? (
                   <Link
                     to={`/admin/`}
                     className="text-sm block py-2 font-semibold text-black hover:text-primary-color"
@@ -178,7 +182,7 @@ const Navbar = () => {
 
               <div
                 className={`${
-                  userInfo?.token ? null : "w-32"
+                  userInfo?.token ? null : 'w-32'
                 } invisible absolute right-0 z-50 py-2 px-2 border rounded  shadow-3xl group-hover:visible bg-white`}
               >
                 {userInfo?.token ? (
@@ -205,7 +209,7 @@ const Navbar = () => {
                     </Link>
                   </>
                 )}
-                {userInfo?.role === "admin" ? (
+                {userInfo?.role === 'admin' ? (
                   <Link
                     to={`/admin/`}
                     className="text-sm block py-2 font-semibold text-black hover:text-primary-color"
@@ -244,7 +248,7 @@ const Navbar = () => {
         <div
           id="drawer-example"
           className={`lg:hidden w-full fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform duration-500 bg-white sm:w-80 ${
-            !navbarOpen ? "-translate-x-full" : null
+            !navbarOpen ? '-translate-x-full' : null
           }`}
           tabIndex="-1"
           aria-labelledby="drawer-label"
@@ -291,8 +295,8 @@ const Navbar = () => {
               onClick={() => setNavbarOpen(false)}
               className={({ isActive }) =>
                 isActive
-                  ? "text-primary-color border-b-primary-color border-b pb-1 font-bold"
-                  : "text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium"
+                  ? 'text-primary-color border-b-primary-color border-b pb-1 font-bold'
+                  : 'text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium'
               }
               to={`/inicio`}
             >
@@ -303,8 +307,8 @@ const Navbar = () => {
               onClick={() => setNavbarOpen(false)}
               className={({ isActive }) =>
                 isActive
-                  ? "text-primary-color border-b-primary-color border-b pb-1 font-bold"
-                  : "text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium"
+                  ? 'text-primary-color border-b-primary-color border-b pb-1 font-bold'
+                  : 'text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium'
               }
               to={`/reservar-sense-cycle`}
             >
@@ -315,8 +319,8 @@ const Navbar = () => {
               onClick={() => setNavbarOpen(false)}
               className={({ isActive }) =>
                 isActive
-                  ? "text-primary-color border-b-primary-color border-b pb-1 font-bold"
-                  : "text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium"
+                  ? 'text-primary-color border-b-primary-color border-b pb-1 font-bold'
+                  : 'text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium'
               }
               to={`/comprar-clases`}
             >
@@ -327,8 +331,8 @@ const Navbar = () => {
               onClick={() => setNavbarOpen(false)}
               className={({ isActive }) =>
                 isActive
-                  ? "text-primary-color border-b-primary-color border-b pb-1 font-bold"
-                  : "text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium"
+                  ? 'text-primary-color border-b-primary-color border-b pb-1 font-bold'
+                  : 'text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium'
               }
               to={`/instructores`}
             >
@@ -339,8 +343,8 @@ const Navbar = () => {
               onClick={() => setNavbarOpen(false)}
               className={({ isActive }) =>
                 isActive
-                  ? "text-primary-color border-b-primary-color border-b pb-1 font-bold"
-                  : "text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium"
+                  ? 'text-primary-color border-b-primary-color border-b pb-1 font-bold'
+                  : 'text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium'
               }
               to={`/quienes-somos`}
             >
@@ -351,8 +355,8 @@ const Navbar = () => {
               onClick={() => setNavbarOpen(false)}
               className={({ isActive }) =>
                 isActive
-                  ? "text-primary-color border-b-primary-color border-b pb-1 font-bold"
-                  : "text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium"
+                  ? 'text-primary-color border-b-primary-color border-b pb-1 font-bold'
+                  : 'text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium'
               }
               to={`/contacto`}
             >

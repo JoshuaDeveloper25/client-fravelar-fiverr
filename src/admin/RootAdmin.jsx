@@ -1,10 +1,10 @@
-import { Link, Outlet, useNavigate, Navigate, NavLink } from "react-router-dom";
-import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
-import AppContext from "../context/AppProvider";
-import { useContext, useState } from "react";
-import logo from "../images/cycle-logo3.png";
-import { IoMenu } from "react-icons/io5";
-import { toast } from "react-toastify";
+import { Link, Outlet, useNavigate, Navigate, NavLink } from 'react-router-dom';
+import { Menu, Sidebar } from 'react-pro-sidebar';
+import AppContext from '../context/AppProvider';
+import { useContext, useState } from 'react';
+import logo from '../images/cycle-logo3.png';
+import { IoMenu } from 'react-icons/io5';
+import { toast } from 'react-toastify';
 
 const RootAdmin = () => {
   const { setUserInfo, userInfo } = useContext(AppContext);
@@ -14,11 +14,11 @@ const RootAdmin = () => {
   const signOut = () => {
     navigate(`/`);
     setUserInfo({});
-    localStorage.removeItem("userInfo");
-    toast.success("Sesión cerrada exitosamente!");
+    localStorage.removeItem('userInfo');
+    toast.success('Sesión cerrada exitosamente!');
   };
 
-  if (userInfo.role !== "admin") {
+  if (userInfo.role !== 'admin') {
     return <Navigate to="/" />;
   }
 
@@ -26,7 +26,7 @@ const RootAdmin = () => {
     <div className="flex min-h-svh">
       <div
         className="sticky inset-0"
-        style={{ display: "flex", height: "100%", minHeight: "100vh" }}
+        style={{ display: 'flex', height: '100%', minHeight: '100vh' }}
       >
         <Sidebar
           breakPoint="md"
@@ -56,8 +56,8 @@ const RootAdmin = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? "text-primary-color px-3 py-3"
-                    : "px-3 pt-4 pb-2 font-bold animation-fade hover:text-primary-color"
+                    ? 'text-primary-color px-3 py-3'
+                    : 'px-3 pt-4 pb-2 font-bold animation-fade hover:text-primary-color'
                 }
                 to={`/admin/administrar-instructores`}
               >
@@ -67,12 +67,33 @@ const RootAdmin = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? "text-primary-color px-3 py-3"
-                    : "px-3 py-2 font-bold animation-fade hover:text-primary-color"
+                    ? 'text-primary-color px-3 py-3'
+                    : 'px-3 py-2 font-bold animation-fade hover:text-primary-color'
                 }
-                to={`/admin/administrar-clases`}
+                to={`/admin/administrar-paquetes`}
               >
-                Gestionar Clases
+                Gestionar Paquetes
+              </NavLink>
+
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? 'text-primary-color px-3 py-3'
+                    : 'px-3 py-2 font-bold animation-fade hover:text-primary-color'
+                }
+                to={`/admin/administrar-noticias`}
+              >
+                Gestionar Noticias
+              </NavLink>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? 'text-primary-color px-3 py-3'
+                    : 'px-3 py-2 font-bold animation-fade hover:text-primary-color'
+                }
+                to={`/admin/administrar-calendario`}
+              >
+                Gestionar Calendario
               </NavLink>
 
               <Link
@@ -85,7 +106,7 @@ const RootAdmin = () => {
           </Menu>
         </Sidebar>
 
-        <main style={{ display: "flex", padding: 10 }}>
+        <main style={{ display: 'flex', padding: 10 }}>
           <div>
             <button
               className="sb-button text-4xl md:hidden"

@@ -36,7 +36,7 @@ export const Table = ({ columns = [], data = [] }) => {
           <input
             type="search"
             // value={filtering}
-            // onChange={(e) => setFiltering(e.target.value)}
+            onChange={(e) => setFiltering(e.target.value)}
             className="outline-none my-4 px-2 py-1 rounded-sm focus:border-secondary border"
             placeholder="Name"
           />
@@ -74,7 +74,7 @@ export const Table = ({ columns = [], data = [] }) => {
         {/* Head */}
 
         {/* Body */}
-        <tbody>
+        <tbody className="text-lg">
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id} className={`border-b border-b-gray-300 ${row.id}`}>
               {row.getVisibleCells().map((cell) => (

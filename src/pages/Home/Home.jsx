@@ -1,3 +1,4 @@
+import ClassesSection from "../../components/ClassesSection";
 import HomeCarousel from "./components/HomeCarousel";
 import HomeComprarClases from "./components/HomeComprarClases";
 import HomeNoticias from "./components/HomeNoticias";
@@ -10,6 +11,10 @@ const Home = () => {
 
       {/* Home Comprar Clases */}
       <HomeComprarClases />
+
+      {/* Clases */}
+
+      <ClassesSection />
 
       {/* Home Noticias */}
       <HomeNoticias />

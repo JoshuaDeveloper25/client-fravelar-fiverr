@@ -19,6 +19,26 @@
   .blue-focus {
     @apply border border-[#86B7FE] rounded outline-0 shadow-[0_0_0_.15rem_rgba(13,110,253,.25)];
   }
+
+  .btn {
+    @apply block bg-primary-color text-white rounded-lg p-2;
+  }
+
+  .input {
+    @apply border-b-2 valid:border-green-500 invalid:border-red-500 focus:outline-none border-black w-full py-1;
+  }
+}
+
+.disable-menu .ql-toolbar {
+  display: none;
+}
+
+.disable-menu .ql-editor {
+  padding: 0;
+}
+
+.disable-menu .ql-snow {
+  border: none !important;
 }
 
 .carousel-header-inicio > article > .slick-slider > .slick-prev:before,
@@ -49,4 +69,8 @@
 
 .shrink:hover img {
   transform: scale(1.2);
+}
+
+body {
+  background-color: #eee;
 }

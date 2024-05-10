@@ -11,25 +11,30 @@ import ModalComponent from '../../components/ModalComponent';
 import { MdModeEdit } from 'react-icons/md';
 import { MdDelete } from 'react-icons/md';
 import InputBox from '../../components/InputBox';
-import CellPreviewImg from '../../components/CellPreviewImg';
+import Select from '../../components/Select';
+import moment from 'moment';
+import { diasSemana } from '../../utils/data';
 
-const ManageInstructors = () => {
+const ManageSchedule = () => {
   const columns = [
     {
-      header: 'Name',
-      accessorKey: 'instructorName',
+      header: 'Instructor',
+      accessorKey: 'instructorInfo.instructorName',
     },
 
     {
-      header: 'Description',
-      accessorKey: 'description',
+      header: 'Dia de la Semana',
+      accessorKey: 'dayWeek',
     },
 
     {
-      header: 'Imagen del Anuncio',
-      cell: (info) => (
-        <CellPreviewImg dataRow={info?.row?.original} endpoint="instructors" />
-      ),
+      header: 'Fecha',
+      accessorKey: 'date',
+    },
+
+    {
+      header: 'Tiempo Inicio',
+      accessorKey: 'startTime',
     },
 
     {
@@ -39,10 +44,12 @@ const ManageInstructors = () => {
   ];
 
   const { data, isLoading } = useQuery({
-    queryKey: ['instructors'],
+    queryKey: ['all-classes'],
     queryFn: async () =>
       await axios
-        ?.get(`${import.meta.env.VITE_BASE_URL}/instructors/`)
+        ?.get(
+          `${import.meta.env.VITE_BASE_URL}/class-schedule/all-class-schedule`
+        )
         .then((res) => res.data),
   });
 
@@ -63,6 +70,10 @@ const ManageInstructors = () => {
 };
 
 const CellCustomInstructor = ({ dataRow }) => {
+  const [selectedOption, setSelectedOption] = useState(
+    dataRow?.instructorInfo._id
+  );
+
   const [showModal, setShowModal] = useState(false);
 
   const queryClient = useQueryClient();
@@ -70,12 +81,12 @@ const CellCustomInstructor = ({ dataRow }) => {
   const { mutate, isPending } = useMutation({
     mutationFn: (instructorInfo) =>
       axios.put(
-        `${import.meta.env.VITE_BASE_URL}/instructors/${dataRow?._id}`,
+        `${import.meta.env.VITE_BASE_URL}/class-schedule/${dataRow?._id}`,
         instructorInfo
       ),
 
     onSuccess: () => {
-      queryClient.invalidateQueries(['instructors']);
+      queryClient.invalidateQueries(['all-classes']);
       toast.success(`Exitosamente editado!`);
       setShowModal(!showModal);
     },
@@ -89,12 +100,12 @@ const CellCustomInstructor = ({ dataRow }) => {
   const deleteMutation = useMutation({
     mutationFn: (instructorInfo) =>
       axios.delete(
-        `${import.meta.env.VITE_BASE_URL}/instructors/${dataRow?._id}`,
+        `${import.meta.env.VITE_BASE_URL}/class-schedule/${dataRow?._id}`,
         instructorInfo
       ),
 
     onSuccess: () => {
-      queryClient.invalidateQueries(['instructors']);
+      queryClient.invalidateQueries(['all-classes']);
       toast.success(`Exitosamente editado!`);
     },
 
@@ -103,16 +114,13 @@ const CellCustomInstructor = ({ dataRow }) => {
       console.log(err);
     },
   });
-
   const handleDelete = () => {
-    const confirmDelete = confirm('Desea eliminar este instructor?');
+    const confirmDelete = confirm('Desea eliminar este clase?');
 
     if (!confirmDelete) return;
 
     deleteMutation.mutate();
   };
-
-  console.log(dataRow);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -120,14 +128,22 @@ const CellCustomInstructor = ({ dataRow }) => {
     const data = new FormData(e.target);
 
     const dataSend = {
-      instructorName: data.get('instructorName'),
-      description: data.get('instructorDesc'),
+      date: moment(data.get('date')).format('YYYY/MM/DD'),
+      startTime: data.get('startTime'),
+      dayWeek: obtenerNombreDia(data.get('date')),
+      instructorInfo: data.get('instructorInfo'),
     };
+
+    function obtenerNombreDia(fecha) {
+      return diasSemana[new Date(fecha).getDay()];
+    }
 
     mutate(dataSend);
   };
 
-  const isDisabled = isPending;
+  const onhandleChange = (e) => {
+    setSelectedOption(e.target.value);
+  };
 
   return (
     <>
@@ -151,33 +167,53 @@ const CellCustomInstructor = ({ dataRow }) => {
       <ModalComponent
         setShowModal={setShowModal}
         showModal={showModal}
-        titleModal={'Editar Instructor'}
+        titleModal={'Editar Clase'}
         showBtn={false}
       >
         <form onSubmit={handleSubmit}>
           <div className="px-3">
-            <InputBox
-              propInput={{
-                name: 'instructorName',
-                required: true,
-                defaultValue: dataRow?.instructorName,
-                disabled: isDisabled,
-              }}
-              labelTitle={'Nombre'}
-            />
+            <div className="flex gap-5">
+              <div className="flex-1">
+                <InputBox
+                  propInput={{
+                    name: 'date',
+                    required: true,
+                    type: 'date',
+                    disabled: isPending,
+                    defaultValue: moment(dataRow?.date).format('YYYY-MM-DD'),
+                  }}
+                  labelTitle={'Fecha'}
+                />
+              </div>
 
-            <InputBox
-              propInput={{
-                name: 'instructorDesc',
-                required: true,
-                defaultValue: dataRow?.description,
-                disabled: isDisabled,
-              }}
-              labelTitle={'Descripción'}
+              <div className="flex-1">
+                <InputBox
+                  propInput={{
+                    name: 'startTime',
+                    required: true,
+                    type: 'time',
+                    disabled: isPending,
+                    defaultValue: dataRow?.startTime,
+                  }}
+                  labelTitle={'Hora Inicio'}
+                />
+              </div>
+            </div>
+
+            <Select
+              labelTitle={'Escoge Instructor'}
+              endpoint={'/instructors/'}
+              name={'instructorInfo'}
+              optionName={'instructorName'}
+              defaultValue={'-- Selecciona Instructor --'}
+              disabled={isPending}
+              value={selectedOption}
+              onhandleChange={onhandleChange}
+              required
             />
           </div>
-          <button className="btn w-full" disabled={isDisabled}>
-            Editar
+          <button className="btn w-full" disabled={isPending}>
+            Registrar
           </button>
         </form>
       </ModalComponent>
@@ -185,4 +221,4 @@ const CellCustomInstructor = ({ dataRow }) => {
   );
 };
 
-export default ManageInstructors;
+export default ManageSchedule;

@@ -1,6 +1,51 @@
+import { useMutation } from '@tanstack/react-query';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { getError } from '../../../utils/getError';
+
 const SignUpForm = () => {
+  const navigate = useNavigate();
+
+  const signUpMutate = useMutation({
+    mutationFn: async (dataBody) =>
+      await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/users/register`,
+        dataBody
+      ),
+    onSuccess: (data) => {
+      navigate('/emailenviado');
+    },
+    onError: (err) => {
+      toast.error(getError(err));
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const dataForm = new FormData(e.target);
+
+    const dataSend = {
+      email: dataForm.get('email'),
+      name: dataForm.get('name'),
+      password: dataForm.get('password'),
+    };
+
+    if (dataForm.get('passwordVerify') !== dataSend.password) {
+      return toast.error('No coinciden las contraseñas');
+    }
+
+    signUpMutate.mutate(dataSend);
+  };
+
+  const isDisabled = signUpMutate.isPending;
+
   return (
-    <form className="max-w-lg mx-auto shadow-lg rounded space-y-5 px-6 py-6">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-lg mx-auto shadow-lg rounded space-y-5 px-6 py-6"
+    >
       <div>
         <h4 className="text-sm pt-1">Completa el siguiente formulario</h4>
       </div>
@@ -14,6 +59,9 @@ const SignUpForm = () => {
             className="bg-white border w-full focus:blue-focus px-2 py-1"
             type="text"
             id="fullName"
+            name="name"
+            required
+            disabled={isDisabled}
           />
         </div>
 
@@ -26,18 +74,9 @@ const SignUpForm = () => {
               className="bg-white border w-full focus:blue-focus px-2 py-1"
               type="email"
               id="email"
-            />
-          </div>
-
-          <div className="flex-1">
-            <label htmlFor="confirmEmail" className="text-black block">
-              <span className="text-red-500">*</span> Confirma tu email
-            </label>
-            <input
-              className="bg-white border w-full focus:blue-focus px-2 py-1"
-              type="email"
-              id="confirmEmail"
-              name="confirmEmail"
+              name="email"
+              required
+              disabled={isDisabled}
             />
           </div>
         </div>
@@ -51,6 +90,9 @@ const SignUpForm = () => {
               className="bg-white border w-full focus:blue-focus px-2 py-1"
               type="password"
               id="password"
+              name="password"
+              required
+              disabled={isDisabled}
             />
           </div>
 
@@ -62,26 +104,18 @@ const SignUpForm = () => {
               className="bg-white border w-full focus:blue-focus px-2 py-1"
               type="password"
               id="confirmPassword"
+              name="passwordVerify"
+              required
+              disabled={isDisabled}
             />
           </div>
-        </div>
-
-        <div>
-          <label htmlFor="phone" className="text-black block">
-            <span className="text-red-500">*</span> Telefono
-          </label>
-          <input
-            className="bg-white border w-full focus:blue-focus px-2 py-1"
-            type="phone"
-            id="phone"
-          />
         </div>
       </div>
 
       <div className="flex flex-col">
         <div>
           <h3 className="mb-2">
-            ¿Ya tienes una{" "}
+            ¿Ya tienes una{' '}
             <Link to={`/`}>
               <span className="text-primary-color">cuenta</span>?
             </Link>
@@ -90,6 +124,7 @@ const SignUpForm = () => {
 
         <div>
           <button
+            disabled={isDisabled}
             className="text-sm text-white font-medium w-full rounded py-2 px-2 bg-primary-color hover:opacity-60 animation-fade"
             type="submit"
           >
