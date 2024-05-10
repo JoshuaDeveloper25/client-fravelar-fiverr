@@ -135,7 +135,13 @@ const CycleBox = ({
     <button
       disabled={isDisabled}
       className="disabled:opacity-10"
-      onClick={() => onReservate.mutate(positionCycle)}
+      onClick={() => {
+        const confirmReq = confirm('Seguro que deseas esta Bici?');
+
+        if (!confirmReq) return;
+
+        onReservate.mutate(positionCycle);
+      }}
     >
       <span className="font-semibold">{positionCycle}</span>
       <div
