@@ -137,7 +137,9 @@ const ClassBox = ({ classInfo, date }) => {
     <button
       onClick={handleClick}
       disabled={!compareDate}
-      className="disabled:opacity-70 disabled:hover:scale-100 block hover:scale-105 hover:shadow-lg transition-all bg-primary-light text-primary-dark text-xl rounded-lg w-full text-center overflow-hidden pb-5 mb-5 last:mb-0"
+      className="
+       disabled:bg-gray-300 disabled:cursor-not-allowed disabled:text-white disabled:hover:scale-100 
+      block hover:scale-105 hover:shadow-lg transition-all bg-primary-light text-primary-dark text-xl rounded-lg w-full text-center overflow-hidden pb-5 mb-5 last:mb-0"
     >
       <div className="text-end">
         <span className="bg-primary-color/15 w-fit py-1 px-2 inline-block rounded-l-3xl text-sm">
