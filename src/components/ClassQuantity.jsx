@@ -6,7 +6,6 @@ import moment from 'moment';
 
 const ClassQuantity = () => {
   const { userInfo } = useContext(AppContext);
-  console.log(moment())
   const classesQuery = useQuery({
     queryKey: ['qunatityClass', userInfo?.token],
     queryFn: async () =>
@@ -21,10 +20,14 @@ const ClassQuantity = () => {
 
   if (!userInfo?.token) return;
 
+  console.log(classesQuery.data);
+
   return (
     <div className="border border-primary-color rounded-xl px-3 py-1 text-black font-semibold">
       {classesQuery?.isLoading && <span>Cargando</span>}
-      {!classesQuery?.isLoading && <span>Tus clases: {classesQuery.data?.tusClases?.classQuantity}</span>}
+      {!classesQuery?.isLoading && (
+        <span>Tus clases: {classesQuery.data?.tusClases?.classQuantity}</span>
+      )}
     </div>
   );
 };

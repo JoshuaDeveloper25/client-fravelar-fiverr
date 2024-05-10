@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from 'react';
 import AppContext from '../../../context/AppProvider';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import moment from 'moment';

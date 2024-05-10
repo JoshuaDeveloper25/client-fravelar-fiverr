@@ -25,8 +25,8 @@ const ClassesSection = () => {
           <div key={classItem?._id} className="border p-2 rounded-lg">
             <div className="bg-primary-light text-primary-dark text-xl rounded-lg w-full text-center overflow-hidden">
               <div className="text-end">
-                <span className="bg-primary-color/15 w-fit py-1.5 px-3 inline-block rounded-l-3xl text-2xl">
-                  ${classItem?.packagePrice}
+                <span className="bg-primary-color/15 w-fit py-1.5 px-3 inline-flex rounded-l-3xl text-2xl">
+                  ${classItem?.packagePrice} <span className="text-sm">MXN</span>
                 </span>
               </div>
               <div className="px-5 pb-5">
