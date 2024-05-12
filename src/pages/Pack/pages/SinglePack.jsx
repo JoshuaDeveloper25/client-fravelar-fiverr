@@ -27,11 +27,8 @@ const SinglePack = () => {
 
   return (
     <div className="container-page my-10">
-      <div
-        className="grid gap-10 items-start"
-        style={{ gridTemplateColumns: '1fr 20rem' }}
-      >
-        <div className="bg-white rounded-xl p-5">
+      <div className="flex flex-col-reverse lg:flex-row gap-10 lg:items-start">
+        <div className="bg-white rounded-xl flex-1 p-5 ">
           <h2 className="text-2xl mb-1 text-primary-dark font-semibold">
             INFORMACIÓN DEL USUARIO
           </h2>
@@ -54,7 +51,8 @@ const SinglePack = () => {
             Pagar Ahora
           </button> */}
         </div>
-        <div className="bg-white rounded-xl overflow-hidden">
+
+        <div className="bg-white rounded-xl flex-1 overflow-hidden lg:max-w-xs">
           <header className="py-2 px-4 text-xl bg-primary-dark text-white">
             <span>Tu compra</span>
           </header>
@@ -184,7 +182,7 @@ const CheckOutFormStripe = () => {
         className="disabled:opacity-35 btn btn-outline-primary mt-3"
         disabled={isProccessing || !stripe || !elements || buyMutate.isPending}
       >
-        {isProccessing ? <div>Loading ...</div> : 'Pay Now'}
+        {isProccessing ? <div>Loading ...</div> : 'Pagar Ahora'}
       </button>
 
       {message && <div>{message}</div>}

@@ -29,7 +29,7 @@ export const Table = ({ columns = [], data = [] }) => {
   });
 
   return (
-    <div className="mt-6">
+    <div className="mt-6 overflow-x-auto">
       {/* --> Input search */}
       {data?.length !== 0 && (
         <>
@@ -43,7 +43,7 @@ export const Table = ({ columns = [], data = [] }) => {
         </>
       )}
 
-      <table className="w-full border-collapse border-spacing-0">
+      <table className="min-w-[30rem] w-full border-collapse border-spacing-0">
         {/* Head */}
         <thead className="bg-slate-50">
           {table.getHeaderGroups().map((headerGroup) => (

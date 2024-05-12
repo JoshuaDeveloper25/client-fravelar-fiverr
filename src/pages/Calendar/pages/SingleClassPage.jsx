@@ -86,23 +86,26 @@ const SingleClassPage = () => {
         </ul> */}
       </header>
 
-      <div className="mx-auto w-fit mb-5">
-        <CycleBox isTaken={true} isInstructor={true} />
-      </div>
-
-      <div className="flex flex-wrap gap-10 justify-center max-w-2xl mx-auto">
-        {Array.from({ length: 10 }).map((item, key) => (
-          <div className="max-w-32" key={key}>
-            <CycleBox
-              isTaken={classInfo.data?.bicis?.findIndex(
-                (item) => item.noBici === key
-              )}
-              isDisabled={reservateMutation.isPending}
-              onReservate={reservateMutation}
-              positionCycle={key}
-            />
+      <div className="overflow-x-auto">
+        <div className="min-w-[40rem]">
+          <div className="mx-auto w-fit mb-5">
+            <CycleBox isTaken={true} isInstructor={true} />
           </div>
-        ))}
+          <div className="flex flex-wrap gap-10 justify-center max-w-2xl mx-auto">
+            {Array.from({ length: 10 }).map((item, key) => (
+              <div className="max-w-32" key={key}>
+                <CycleBox
+                  isTaken={classInfo.data?.bicis?.findIndex(
+                    (item) => item.noBici === key
+                  )}
+                  isDisabled={reservateMutation.isPending}
+                  onReservate={reservateMutation}
+                  positionCycle={key}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

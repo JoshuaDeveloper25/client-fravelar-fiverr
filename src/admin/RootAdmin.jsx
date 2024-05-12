@@ -23,10 +23,10 @@ const RootAdmin = () => {
   }
 
   return (
-    <div className="flex min-h-svh">
+    <div className="md:flex min-h-svh">
       <div
         className="sticky inset-0"
-        style={{ display: 'flex', height: '100%', minHeight: '100vh' }}
+        style={{ display: 'flex', height: '100%' }}
       >
         <Sidebar
           breakPoint="md"
@@ -48,7 +48,7 @@ const RootAdmin = () => {
 
               <NavLink
                 to={`/inicio`}
-                className="font-bold animation-fade hover:text-primary-color border-b border-gray-500 block mx-3 pb-2"
+                className="font-bold animation-fade hover:bg-primary-color border-b border-gray-500 block px-3 py-3"
               >
                 Volver a Inicio
               </NavLink>
@@ -56,8 +56,8 @@ const RootAdmin = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-primary-color px-3 py-3'
-                    : 'px-3 pt-4 pb-2 font-bold animation-fade hover:text-primary-color'
+                    ? 'bg-primary-color px-3 py-3 font-bold'
+                    : ' px-3 py-3 font-bold animation-fade hover:bg-primary-color'
                 }
                 to={`/admin/administrar-instructores`}
               >
@@ -67,8 +67,8 @@ const RootAdmin = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-primary-color px-3 py-3'
-                    : 'px-3 py-2 font-bold animation-fade hover:text-primary-color'
+                    ? 'bg-primary-color px-3 py-3 font-bold'
+                    : ' px-3 py-3 font-bold animation-fade hover:bg-primary-color'
                 }
                 to={`/admin/administrar-paquetes`}
               >
@@ -78,8 +78,8 @@ const RootAdmin = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-primary-color px-3 py-3'
-                    : 'px-3 py-2 font-bold animation-fade hover:text-primary-color'
+                    ? 'bg-primary-color px-3 py-3 font-bold'
+                    : ' px-3 py-3 font-bold animation-fade hover:bg-primary-color'
                 }
                 to={`/admin/administrar-noticias`}
               >
@@ -88,8 +88,8 @@ const RootAdmin = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-primary-color px-3 py-3'
-                    : 'px-3 py-2 font-bold animation-fade hover:text-primary-color'
+                    ? 'bg-primary-color px-3 py-3 font-bold'
+                    : ' px-3 py-3 font-bold animation-fade hover:bg-primary-color'
                 }
                 to={`/admin/administrar-calendario`}
               >
@@ -121,7 +121,7 @@ const RootAdmin = () => {
       </div>
 
       {/* --> This is the admin panel */}
-      <main className="">
+      <main className="px-5">
         <Outlet />
       </main>
     </div>

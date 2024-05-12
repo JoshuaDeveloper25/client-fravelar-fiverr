@@ -47,7 +47,7 @@ const Calendar = () => {
     }
 
     // Mostrar la nueva fecha en formato yyyy/mm/dd
-  }, []);
+  }, [filterDate]);
 
   // if (classSchedule.isLoading) return <p>Cargando</p>;
 
@@ -92,33 +92,33 @@ const Calendar = () => {
         </div>
       </header>
 
-      <div className="grid grid-cols-7 gap-5">
-        {dataSorted?.map((item) => {
-          item.clases.sort(
-            (a, b) => +a.horaInicio.split(':')[0] - +b.horaInicio.split(':')[0]
-          );
-
-          return (
-            <div key={item?.nombre}>
-              <header className="text-center text-xl mb-5">
-                <span className="block capitalize">{item?.nombre}</span>
-                <span className="flex items-center justify-center bg-primary-dark text-white w-9 h-9 rounded-full mx-auto mt-2">
-                  {item?.fecha.split('/')[2]}
-                </span>
-              </header>
-
-              <div className="">
-                {item.clases.map((classInfo, idx) => (
-                  <ClassBox
-                    date={item?.fecha}
-                    classInfo={classInfo}
-                    key={idx}
-                  />
-                ))}
+      <div className='overflow-x-auto'>
+        <div className="grid grid-cols-7 gap-5 min-w-[50rem]">
+          {dataSorted?.map((item) => {
+            item.clases.sort(
+              (a, b) => +a.horaInicio.split(':')[0] - +b.horaInicio.split(':')[0]
+            );
+            return (
+              <div key={item?.nombre}>
+                <header className="text-center text-xl mb-5">
+                  <span className="block capitalize">{item?.nombre}</span>
+                  <span className="flex items-center justify-center bg-primary-dark text-white w-9 h-9 rounded-full mx-auto mt-2">
+                    {item?.fecha.split('/')[2]}
+                  </span>
+                </header>
+                <div className="">
+                  {item.clases.map((classInfo, idx) => (
+                    <ClassBox
+                      date={item?.fecha}
+                      classInfo={classInfo}
+                      key={idx}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );

@@ -94,85 +94,8 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-center">
-            <div className="group relative">
-              <div className="flex gap-5 items-center">
-                <ClassQuantity />
-                <div className="flex items-center cursor-pointer justify-center space-x-3 bg-primary-color rounded-full h-10 w-10">
-                  <a className="menu-hover">
-                    <FaUser className="text-white" />
-                  </a>
-                </div>
-              </div>
-
-              <div
-                className={`${
-                  userInfo?.token ? null : 'w-32'
-                } invisible absolute right-0 z-50 py-2 px-2 border rounded  shadow-3xl group-hover:visible bg-white`}
-              >
-                {userInfo?.token ? (
-                  <div className="border-b">
-                    <h4 className="text-sm text-black">{userInfo?.email}</h4>
-                    <h4 className="text-sm text-black pb-2">
-                      {userInfo?.name}
-                    </h4>
-                  </div>
-                ) : (
-                  <>
-                    <Link
-                      to={`/`}
-                      className="text-sm block py-1 font-semibold text-black hover:text-primary-color"
-                    >
-                      Iniciar Sesión
-                    </Link>
-
-                    <Link
-                      to={`/registrarse`}
-                      className="text-sm block py-1 font-semibold text-black hover:text-primary-color"
-                    >
-                      Registrar
-                    </Link>
-                  </>
-                )}
-                {userInfo?.role === 'admin' ? (
-                  <Link
-                    to={`/admin/`}
-                    className="text-sm block py-2 font-semibold text-black hover:text-primary-color"
-                  >
-                    Panel Admin
-                  </Link>
-                ) : null}
-                {userInfo?.token ? (
-                  <>
-                    <button
-                      onClick={signOut}
-                      className="text-sm block py-1 font-semibold text-red-500 hover:text-red-700"
-                    >
-                      Cerrar Sesión
-                    </button>
-                  </>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* <!-- drawer init and toggle --> */}
-        <div className="md:hidden flex justify-between gap-3 items-center">
-          <div className="text-center">
-            <button
-              className="font-medium text-2xl"
-              type="button"
-              data-drawer-target="drawer-example"
-              data-drawer-show="drawer-example"
-              aria-controls="drawer-example"
-              onClick={() => setNavbarOpen(true)}
-            >
-              <GiHamburgerMenu />
-            </button>
-          </div>
-
-          <div className="flex items-center justify-center">
+          <div className="flex items-center gap-5 justify-center">
+            <ClassQuantity />
             <div className="group relative">
               <div className="flex items-center cursor-pointer justify-center space-x-3 bg-primary-color rounded-full h-10 w-10">
                 <a className="menu-hover">
@@ -211,7 +134,83 @@ const Navbar = () => {
                 )}
                 {userInfo?.role === 'admin' ? (
                   <Link
-                    to={`/admin/`}
+                    to={`/admin/administrar-instructores`}
+                    className="text-sm block py-2 font-semibold text-black hover:text-primary-color"
+                  >
+                    Panel Admin
+                  </Link>
+                ) : null}
+                {userInfo?.token ? (
+                  <>
+                    <button
+                      onClick={signOut}
+                      className="text-sm block py-1 font-semibold text-red-500 hover:text-red-700"
+                    >
+                      Cerrar Sesión
+                    </button>
+                  </>
+                ) : null}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* <!-- drawer init and toggle --> */}
+        <div className="md:hidden flex justify-between gap-3 items-center">
+          <div className="text-center">
+            <button
+              className="font-medium text-2xl"
+              type="button"
+              data-drawer-target="drawer-example"
+              data-drawer-show="drawer-example"
+              aria-controls="drawer-example"
+              onClick={() => setNavbarOpen(true)}
+            >
+              <GiHamburgerMenu />
+            </button>
+          </div>
+
+          <div className="flex items-center gap-5 justify-center">
+            <ClassQuantity />
+            <div className="group relative">
+              <div className="flex items-center cursor-pointer justify-center space-x-3 bg-primary-color rounded-full h-10 w-10">
+                <a className="menu-hover">
+                  <FaUser className="text-white" />
+                </a>
+              </div>
+
+              <div
+                className={`${
+                  userInfo?.token ? null : 'w-32'
+                } invisible absolute right-0 z-50 py-2 px-2 border rounded  shadow-3xl group-hover:visible bg-white`}
+              >
+                {userInfo?.token ? (
+                  <div className="border-b">
+                    <h4 className="text-sm text-black">{userInfo?.email}</h4>
+                    <h4 className="text-sm text-black pb-2">
+                      {userInfo?.name}
+                    </h4>
+                  </div>
+                ) : (
+                  <>
+                    <Link
+                      to={`/`}
+                      className="text-sm block py-1 font-semibold text-black hover:text-primary-color"
+                    >
+                      Iniciar Sesión
+                    </Link>
+
+                    <Link
+                      to={`/registrarse`}
+                      className="text-sm block py-1 font-semibold text-black hover:text-primary-color"
+                    >
+                      Registrar
+                    </Link>
+                  </>
+                )}
+                {userInfo?.role === 'admin' ? (
+                  <Link
+                    to={`/admin/administrar-instructores`}
                     className="text-sm block py-2 font-semibold text-black hover:text-primary-color"
                   >
                     Panel Admin
@@ -310,7 +309,7 @@ const Navbar = () => {
                   ? 'text-primary-color border-b-primary-color border-b pb-1 font-bold'
                   : 'text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium'
               }
-              to={`/reservar-sense-cycle`}
+              to={`/calendario`}
             >
               Reservar Sense Cycle
             </NavLink>
