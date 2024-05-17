@@ -92,7 +92,7 @@ const Calendar = () => {
         </div>
       </header>
 
-      <div className='overflow-x-auto'>
+      <div className='overflow-x-auto pb-5'>
         <div className="grid grid-cols-7 gap-5 min-w-[50rem]">
           {dataSorted?.map((item) => {
             item.clases.sort(

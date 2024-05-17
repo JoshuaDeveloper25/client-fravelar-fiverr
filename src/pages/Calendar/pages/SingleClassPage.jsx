@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import cycle from '../../../images/stationary-bike.png';
 
 import { IoMdBicycle } from 'react-icons/io';
@@ -12,7 +12,7 @@ import { useContext } from 'react';
 import AppContext from '../../../context/AppProvider';
 import moment from 'moment';
 
-const SingleClassPage = () => {
+const SingleClassPage = ({ isAdmin }) => {
   const queryClient = useQueryClient();
   const { id } = useParams();
   const { userInfo } = useContext(AppContext);
@@ -70,9 +70,23 @@ const SingleClassPage = () => {
   return (
     <div className="container-page my-10">
       <header className="mb-10">
-        <h1 className="text-center text-2xl font-semibold">
-          Escoge tu bicicleta
-        </h1>
+        {isAdmin && (
+          <>
+            <Link
+              to={'/admin/administrar-calendario'}
+              className="text-blue-500 border-b border-blue-500 text-xl hover:bg-blue-500 hover:text-white px-2 py-1 rounded-t-lg mb-5 block w-fit"
+            >
+              Regresar
+            </Link>
+            <h1 className="text-xl">Clase: {id}</h1>
+          </>
+        )}
+
+        {!isAdmin && (
+          <h1 className="text-center text-2xl font-semibold">
+            Escoge tu bicicleta
+          </h1>
+        )}
 
         {/* <ul className="flex justify-center gap-5">
           <li className="flex items-center gap-2">
@@ -91,16 +105,20 @@ const SingleClassPage = () => {
           <div className="mx-auto w-fit mb-5">
             <CycleBox isTaken={true} isInstructor={true} />
           </div>
-          <div className="flex flex-wrap gap-10 justify-center max-w-2xl mx-auto">
+          <div className="grid grid-cols-5 gap-10 justify-center max-w-2xl mx-auto">
             {Array.from({ length: 10 }).map((item, key) => (
               <div className="max-w-32" key={key}>
                 <CycleBox
                   isTaken={classInfo.data?.bicis?.findIndex(
                     (item) => item.noBici === key
                   )}
-                  isDisabled={reservateMutation.isPending}
+                  isDisabled={isAdmin || reservateMutation.isPending}
                   onReservate={reservateMutation}
                   positionCycle={key}
+                  isAdmin={isAdmin}
+                  data={classInfo.data?.bicis?.find(
+                    (item) => item.noBici === key
+                  )}
                 />
               </div>
             ))}
@@ -117,7 +135,20 @@ const CycleBox = ({
   positionCycle,
   isDisabled,
   isInstructor,
+  isAdmin,
+  data,
 }) => {
+  let text = 'Ocupado';
+
+  if (isInstructor && !isAdmin) {
+    text = 'Instructor';
+  }
+
+  if (isAdmin) {
+    text = data?.nameClient;
+    console.log(data);
+  }
+
   console.log(isTaken, 'esta tomado');
   if (isTaken >= 0)
     return (
@@ -130,14 +161,14 @@ const CycleBox = ({
         >
           <IoMdBicycle />
         </div>
-        <p className="text-xl">{isInstructor ? 'Instructor' : 'Ocupado'}</p>
+        <p className="text-xl">{text}</p>
       </div>
     );
 
   return (
     <button
       disabled={isDisabled}
-      className="disabled:opacity-10"
+      className={`${isAdmin ? 'pointer-events-none' : null}`}
       onClick={() => {
         const confirmReq = confirm('Seguro que deseas esta Bici?');
 

@@ -137,6 +137,11 @@ const router = createBrowserRouter([
           },
 
           {
+            element: <SingleClassPage isAdmin={true}/>,
+            path: 'administrar-calendario/:id',
+          },
+
+          {
             element: <ManageNews />,
             path: 'administrar-noticias',
           },

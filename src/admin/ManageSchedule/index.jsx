@@ -14,6 +14,7 @@ import InputBox from '../../components/InputBox';
 import Select from '../../components/Select';
 import moment from 'moment';
 import { diasSemana } from '../../utils/data';
+import { Link } from 'react-router-dom';
 
 const ManageSchedule = () => {
   const columns = [
@@ -35,6 +36,23 @@ const ManageSchedule = () => {
     {
       header: 'Tiempo Inicio',
       accessorKey: 'startTime',
+    },
+
+    {
+      header: 'Reservas',
+      cell: (info) => {
+        const value = info?.row?.original;
+        console.log(value);
+
+        return (
+          <Link
+            to={`/admin/administrar-calendario/${value?._id}`}
+            className="bg-blue-500 text-white px-2 rounded-lg"
+          >
+            Ver Gente ({value?.bicis.length})
+          </Link>
+        );
+      },
     },
 
     {
