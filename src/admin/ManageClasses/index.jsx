@@ -143,8 +143,8 @@ const CellCustomInstructor = ({ dataRow }) => {
       <ModalComponent
         setShowModal={setShowModal}
         showModal={showModal}
-        titleModal={'Editar Paquetes'}
         showBtn={false}
+        titleModal={'Editar Paquetes'}
       >
         <form onSubmit={handleSubmit}>
           <div className="px-3">

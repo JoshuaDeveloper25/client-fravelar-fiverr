@@ -35,6 +35,11 @@ const SingleClassPage = ({ isAdmin }) => {
       await axios.patch(
         `${import.meta.env.VITE_BASE_URL}/class-schedule/${id}`,
         {
+          params: {
+            currentDate: moment().format('YYYY-MM-DDTHH:mm:ssZ'),
+          },
+        },
+        {
           noBici,
         }
       ),
@@ -62,7 +67,7 @@ const SingleClassPage = ({ isAdmin }) => {
 
   if (classesQuery.isError || classInfo.isError) return <p>Error</p>;
 
-  if (classesQuery?.data.tusClases?.classQuantity === 0) {
+  if (classesQuery?.data.tusClases?.classQuantity === 0 && !isAdmin) {
     toast.warning('No tienes clases comprados');
     return <Navigate to={'/comprar-clases'} />;
   }

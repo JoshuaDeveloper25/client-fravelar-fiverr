@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import AppContext from '../context/AppProvider';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
@@ -19,6 +19,10 @@ const ClassQuantity = () => {
   });
 
   if (!userInfo?.token) return;
+
+  if (classesQuery.isLoading) return;
+
+  if (classesQuery.data?.tusClases?.classQuantity === 0) return;
 
   console.log(classesQuery.data);
 
