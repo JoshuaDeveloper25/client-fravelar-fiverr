@@ -11,6 +11,7 @@ import { getError } from '../../../utils/getError';
 import { useContext } from 'react';
 import AppContext from '../../../context/AppProvider';
 import moment from 'moment';
+import Spinner from '../../../components/Spinner';
 
 const SingleClassPage = ({ isAdmin }) => {
   const queryClient = useQueryClient();
@@ -63,7 +64,7 @@ const SingleClassPage = ({ isAdmin }) => {
       ),
   });
 
-  if (classesQuery.isLoading || classInfo.isLoading) return <p>Cargando</p>;
+  if (classesQuery.isLoading || classInfo.isLoading) return <Spinner />;
 
   if (classesQuery.isError || classInfo.isError) return <p>Error</p>;
 
@@ -75,34 +76,20 @@ const SingleClassPage = ({ isAdmin }) => {
   return (
     <div className="container-page my-10">
       <header className="mb-10">
-        {isAdmin && (
-          <>
-            <Link
-              to={'/admin/administrar-calendario'}
-              className="text-blue-500 border-b border-blue-500 text-xl hover:bg-blue-500 hover:text-white px-2 py-1 rounded-t-lg mb-5 block w-fit"
-            >
-              Regresar
-            </Link>
-            <h1 className="text-xl">Clase: {id}</h1>
-          </>
-        )}
+        <Link
+          to={-1}
+          className="btn-back"
+        >
+          Regresar
+        </Link>
+
+        {isAdmin && <h1 className="text-xl">Clase: {id}</h1>}
 
         {!isAdmin && (
           <h1 className="text-center text-2xl font-semibold">
             Escoge tu bicicleta
           </h1>
         )}
-
-        {/* <ul className="flex justify-center gap-5">
-          <li className="flex items-center gap-2">
-            <div className="rounded-full bg-primary-color h-7 w-7"></div>
-            <p className="text-xl">Ocupado</p>
-          </li>
-          <li className="flex items-center gap-2">
-            <div className="rounded-full bg-green-500 h-7 w-7"></div>
-            <p className="text-xl">Disponible</p>
-          </li>
-        </ul> */}
       </header>
 
       <div className="overflow-x-auto">

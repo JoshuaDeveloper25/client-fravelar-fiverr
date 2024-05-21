@@ -4,7 +4,7 @@ import TextRich from '../../../admin/ManageNews/components/TextRich';
 import { Link } from 'react-router-dom';
 
 const HomeNoticias = () => {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['news'],
     queryFn: async () =>
       await axios
@@ -12,8 +12,22 @@ const HomeNoticias = () => {
         .then((res) => res.data),
   });
 
+  if (isError) {
+    return <p>Ocurrio Algo</p>;
+  }
+
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <section className="container-page my-10 disable-menu">
+        <h2 className="uppercase text-4xl text-center py-6">Noticias</h2>
+
+        <article className="flex flex-wrap items-end gap-y-6 justify-center gap-6 p-6">
+          <div className="animate-pulse bg-primary-color/40 rounded-lg w-[19rem] h-[25rem]"></div>
+          <div className="animate-pulse bg-primary-color/40 rounded-lg w-[19rem] h-[25rem]"></div>
+          <div className="animate-pulse bg-primary-color/40 rounded-lg w-[19rem] h-[25rem]"></div>
+        </article>
+      </section>
+    );
   }
 
   console.log(data);

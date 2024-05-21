@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 
 const ClassesSection = () => {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['classes'],
     queryFn: async () =>
       await axios
@@ -11,22 +11,39 @@ const ClassesSection = () => {
         .then((res) => res.data),
   });
 
+  if(isError) return <p>Ocurrio Algo</p>
+
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="container-page my-10">
+        <h2 className="text-2xl mb-5">Comprar clases</h2>
+
+        <div
+          className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          style={{ gridTemplateRows: '15rem' }}
+        >
+          <div className="animate-pulse bg-primary-color/40 rounded-lg"></div>
+          <div className="animate-pulse bg-primary-color/40 rounded-lg"></div>
+          <div className="animate-pulse bg-primary-color/40 rounded-lg"></div>
+          <div className="animate-pulse bg-primary-color/40 rounded-lg"></div>
+        </div>
+      </div>
+    );
   }
 
   console.log(data);
   return (
     <div className="container-page my-10">
-      <h2 className='text-2xl mb-5'>Comprar clases</h2>
-      
+      <h2 className="text-2xl mb-5">Comprar clases</h2>
+
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {data?.map((classItem) => (
           <div key={classItem?._id} className="border p-2 rounded-lg">
             <div className="bg-primary-light text-primary-dark text-xl rounded-lg w-full text-center overflow-hidden">
               <div className="text-end">
                 <span className="bg-primary-color/15 w-fit py-1.5 px-3 inline-flex rounded-l-3xl text-2xl">
-                  ${classItem?.packagePrice} <span className="text-sm">MXN</span>
+                  ${classItem?.packagePrice}{' '}
+                  <span className="text-sm">MXN</span>
                 </span>
               </div>
               <div className="px-5 pb-5">

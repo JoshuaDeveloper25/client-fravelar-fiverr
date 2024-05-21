@@ -26,8 +26,6 @@ const Calendar = () => {
     enabled: !!filterDate,
   });
 
-  console.log(classSchedule.data);
-
   useEffect(() => {
     if (!filterDate) {
       // Obtener la fecha actual
@@ -48,6 +46,33 @@ const Calendar = () => {
 
     // Mostrar la nueva fecha en formato yyyy/mm/dd
   }, [filterDate]);
+
+  if (classSchedule.isError) return <p>Ocurrio Algo</p>;
+
+  if (classSchedule.isLoading)
+    return (
+      <div className="container-page my-10">
+        <header className="mb-5">
+          <img src={logo} className="max-w-xs mx-auto" />
+
+          <div className="text-3xl mx-auto w-fit">
+            <button disabled>
+              <IoChevronBackOutline />
+            </button>
+
+            {/* {obtenerMesesEnSemana(dataSorted)} */}
+
+            <button className="rotate-180" disabled>
+              <IoChevronBackOutline />
+            </button>
+          </div>
+        </header>
+
+        <div className="animate-pulse bg-primary-dark h-[25rem] gap-5 min-w-[50rem]"></div>
+      </div>
+    );
+
+  console.log(classSchedule.data);
 
   // if (classSchedule.isLoading) return <p>Cargando</p>;
 
@@ -92,11 +117,12 @@ const Calendar = () => {
         </div>
       </header>
 
-      <div className='overflow-x-auto pb-5'>
+      <div className="overflow-x-auto pb-5">
         <div className="grid grid-cols-7 gap-5 min-w-[50rem]">
           {dataSorted?.map((item) => {
             item.clases.sort(
-              (a, b) => +a.horaInicio.split(':')[0] - +b.horaInicio.split(':')[0]
+              (a, b) =>
+                +a.horaInicio.split(':')[0] - +b.horaInicio.split(':')[0]
             );
             return (
               <div key={item?.nombre}>
