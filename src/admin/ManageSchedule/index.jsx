@@ -1,45 +1,46 @@
 /* eslint-disable react/prop-types */
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Table } from '../../components/Table';
-import Header from './components/Header';
-import { toast } from 'react-toastify';
-import { useState } from 'react';
-import axios from 'axios';
-import { getError } from '../../utils/getError';
-import ModalComponent from '../../components/ModalComponent';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Table } from "../../components/Table";
+import Header from "./components/Header";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import axios from "axios";
+import { getError } from "../../utils/getError";
+import ModalComponent from "../../components/ModalComponent";
 
-import { MdModeEdit } from 'react-icons/md';
-import { MdDelete } from 'react-icons/md';
-import InputBox from '../../components/InputBox';
-import Select from '../../components/Select';
-import moment from 'moment';
-import { diasSemana } from '../../utils/data';
-import { Link } from 'react-router-dom';
+import { MdModeEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import InputBox from "../../components/InputBox";
+import Select from "../../components/Select";
+import moment from "moment";
+import { diasSemana } from "../../utils/data";
+import { Link } from "react-router-dom";
+import Spinner from "../../components/Spinner";
 
 const ManageSchedule = () => {
   const columns = [
     {
-      header: 'Instructor',
-      accessorKey: 'instructorInfo.instructorName',
+      header: "Instructor",
+      accessorKey: "instructorInfo.instructorName",
     },
 
     {
-      header: 'Dia de la Semana',
-      accessorKey: 'dayWeek',
+      header: "Dia de la Semana",
+      accessorKey: "dayWeek",
     },
 
     {
-      header: 'Fecha',
-      accessorKey: 'date',
+      header: "Fecha",
+      accessorKey: "date",
     },
 
     {
-      header: 'Tiempo Inicio',
-      accessorKey: 'startTime',
+      header: "Tiempo Inicio",
+      accessorKey: "startTime",
     },
 
     {
-      header: 'Reservas',
+      header: "Reservas",
       cell: (info) => {
         const value = info?.row?.original;
         console.log(value);
@@ -56,13 +57,13 @@ const ManageSchedule = () => {
     },
 
     {
-      header: 'Actions',
+      header: "Actions",
       cell: (info) => <CellCustomInstructor dataRow={info?.row?.original} />,
     },
   ];
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['all-classes'],
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["all-classes"],
     queryFn: async () =>
       await axios
         ?.get(
@@ -72,7 +73,11 @@ const ManageSchedule = () => {
   });
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <p>Ocurrió algo...</p>;
   }
 
   console.log(data);
@@ -104,7 +109,7 @@ const CellCustomInstructor = ({ dataRow }) => {
       ),
 
     onSuccess: () => {
-      queryClient.invalidateQueries(['all-classes']);
+      queryClient.invalidateQueries(["all-classes"]);
       toast.success(`Exitosamente editado!`);
       setShowModal(!showModal);
     },
@@ -123,7 +128,7 @@ const CellCustomInstructor = ({ dataRow }) => {
       ),
 
     onSuccess: () => {
-      queryClient.invalidateQueries(['all-classes']);
+      queryClient.invalidateQueries(["all-classes"]);
       toast.success(`Exitosamente editado!`);
     },
 
@@ -133,7 +138,7 @@ const CellCustomInstructor = ({ dataRow }) => {
     },
   });
   const handleDelete = () => {
-    const confirmDelete = confirm('Desea eliminar este clase?');
+    const confirmDelete = confirm("Desea eliminar este clase?");
 
     if (!confirmDelete) return;
 
@@ -146,10 +151,10 @@ const CellCustomInstructor = ({ dataRow }) => {
     const data = new FormData(e.target);
 
     const dataSend = {
-      date: moment(data.get('date')).format('YYYY/MM/DD'),
-      startTime: data.get('startTime'),
-      dayWeek: obtenerNombreDia(data.get('date')),
-      instructorInfo: data.get('instructorInfo'),
+      date: moment(data.get("date")).format("YYYY/MM/DD"),
+      startTime: data.get("startTime"),
+      dayWeek: obtenerNombreDia(data.get("date")),
+      instructorInfo: data.get("instructorInfo"),
     };
 
     function obtenerNombreDia(fecha) {
@@ -185,7 +190,7 @@ const CellCustomInstructor = ({ dataRow }) => {
       <ModalComponent
         setShowModal={setShowModal}
         showModal={showModal}
-        titleModal={'Editar Clase'}
+        titleModal={"Editar Clase"}
         showBtn={false}
       >
         <form onSubmit={handleSubmit}>
@@ -194,36 +199,36 @@ const CellCustomInstructor = ({ dataRow }) => {
               <div className="flex-1">
                 <InputBox
                   propInput={{
-                    name: 'date',
+                    name: "date",
                     required: true,
-                    type: 'date',
+                    type: "date",
                     disabled: isPending,
-                    defaultValue: moment(dataRow?.date).format('YYYY-MM-DD'),
+                    defaultValue: moment(dataRow?.date).format("YYYY-MM-DD"),
                   }}
-                  labelTitle={'Fecha'}
+                  labelTitle={"Fecha"}
                 />
               </div>
 
               <div className="flex-1">
                 <InputBox
                   propInput={{
-                    name: 'startTime',
+                    name: "startTime",
                     required: true,
-                    type: 'time',
+                    type: "time",
                     disabled: isPending,
                     defaultValue: dataRow?.startTime,
                   }}
-                  labelTitle={'Hora Inicio'}
+                  labelTitle={"Hora Inicio"}
                 />
               </div>
             </div>
 
             <Select
-              labelTitle={'Escoge Instructor'}
-              endpoint={'/instructors/'}
-              name={'instructorInfo'}
-              optionName={'instructorName'}
-              defaultValue={'-- Selecciona Instructor --'}
+              labelTitle={"Escoge Instructor"}
+              endpoint={"/instructors/"}
+              name={"instructorInfo"}
+              optionName={"instructorName"}
+              defaultValue={"-- Selecciona Instructor --"}
               disabled={isPending}
               value={selectedOption}
               onhandleChange={onhandleChange}

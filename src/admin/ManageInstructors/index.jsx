@@ -1,45 +1,46 @@
 /* eslint-disable react/prop-types */
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Table } from '../../components/Table';
-import Header from './components/Header';
-import { toast } from 'react-toastify';
-import { useState } from 'react';
-import axios from 'axios';
-import { getError } from '../../utils/getError';
-import ModalComponent from '../../components/ModalComponent';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Table } from "../../components/Table";
+import Header from "./components/Header";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import axios from "axios";
+import { getError } from "../../utils/getError";
+import ModalComponent from "../../components/ModalComponent";
 
-import { MdModeEdit } from 'react-icons/md';
-import { MdDelete } from 'react-icons/md';
-import InputBox from '../../components/InputBox';
-import CellPreviewImg from '../../components/CellPreviewImg';
+import { MdModeEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
+import InputBox from "../../components/InputBox";
+import CellPreviewImg from "../../components/CellPreviewImg";
+import Spinner from "../../components/Spinner";
 
 const ManageInstructors = () => {
   const columns = [
     {
-      header: 'Name',
-      accessorKey: 'instructorName',
+      header: "Name",
+      accessorKey: "instructorName",
     },
 
     {
-      header: 'Description',
-      accessorKey: 'description',
+      header: "Description",
+      accessorKey: "description",
     },
 
     {
-      header: 'Imagen del Anuncio',
+      header: "Imagen del Anuncio",
       cell: (info) => (
         <CellPreviewImg dataRow={info?.row?.original} endpoint="instructors" />
       ),
     },
 
     {
-      header: 'Actions',
+      header: "Actions",
       cell: (info) => <CellCustomInstructor dataRow={info?.row?.original} />,
     },
   ];
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['instructors'],
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["instructors"],
     queryFn: async () =>
       await axios
         ?.get(`${import.meta.env.VITE_BASE_URL}/instructors/`)
@@ -47,7 +48,11 @@ const ManageInstructors = () => {
   });
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <p>Ocurrió algo...</p>
   }
 
   console.log(data);
@@ -75,7 +80,7 @@ const CellCustomInstructor = ({ dataRow }) => {
       ),
 
     onSuccess: () => {
-      queryClient.invalidateQueries(['instructors']);
+      queryClient.invalidateQueries(["instructors"]);
       toast.success(`Exitosamente editado!`);
       setShowModal(!showModal);
     },
@@ -94,7 +99,7 @@ const CellCustomInstructor = ({ dataRow }) => {
       ),
 
     onSuccess: () => {
-      queryClient.invalidateQueries(['instructors']);
+      queryClient.invalidateQueries(["instructors"]);
       toast.success(`Exitosamente editado!`);
     },
 
@@ -105,7 +110,7 @@ const CellCustomInstructor = ({ dataRow }) => {
   });
 
   const handleDelete = () => {
-    const confirmDelete = confirm('Desea eliminar este instructor?');
+    const confirmDelete = confirm("Desea eliminar este instructor?");
 
     if (!confirmDelete) return;
 
@@ -120,8 +125,8 @@ const CellCustomInstructor = ({ dataRow }) => {
     const data = new FormData(e.target);
 
     const dataSend = {
-      instructorName: data.get('instructorName'),
-      description: data.get('instructorDesc'),
+      instructorName: data.get("instructorName"),
+      description: data.get("instructorDesc"),
     };
 
     mutate(dataSend);
@@ -151,29 +156,29 @@ const CellCustomInstructor = ({ dataRow }) => {
       <ModalComponent
         setShowModal={setShowModal}
         showModal={showModal}
-        titleModal={'Editar Instructor'}
+        titleModal={"Editar Instructor"}
         showBtn={false}
       >
         <form onSubmit={handleSubmit}>
           <div className="px-3">
             <InputBox
               propInput={{
-                name: 'instructorName',
+                name: "instructorName",
                 required: true,
                 defaultValue: dataRow?.instructorName,
                 disabled: isDisabled,
               }}
-              labelTitle={'Nombre'}
+              labelTitle={"Nombre"}
             />
 
             <InputBox
               propInput={{
-                name: 'instructorDesc',
+                name: "instructorDesc",
                 required: true,
                 defaultValue: dataRow?.description,
                 disabled: isDisabled,
               }}
-              labelTitle={'Descripción'}
+              labelTitle={"Descripción"}
             />
           </div>
           <button className="btn w-full" disabled={isDisabled}>

@@ -11,6 +11,7 @@ import TextRich from './components/TextRich';
 import { MdDelete, MdModeEdit } from 'react-icons/md';
 import InputBox from '../../components/InputBox';
 import CellPreviewImg from '../../components/CellPreviewImg';
+import Spinner from '../../components/Spinner';
 
 const ManageNews = () => {
   const columns = [
@@ -35,7 +36,7 @@ const ManageNews = () => {
     },
   ];
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['news'],
     queryFn: async () =>
       await axios
@@ -43,9 +44,15 @@ const ManageNews = () => {
         .then((res) => res.data),
   });
 
+ 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
+
+  if (isError) {
+    return <p>Ocurrió algo...</p>;
+  }
+
 
   console.log(data);
 

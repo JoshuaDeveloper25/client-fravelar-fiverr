@@ -1,39 +1,40 @@
 /* eslint-disable react/prop-types */
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { Table } from '../../components/Table';
-import Header from './components/Header';
-import { toast } from 'react-toastify';
-import { useState } from 'react';
-import axios from 'axios';
-import { getError } from '../../utils/getError';
-import ModalComponent from '../../components/ModalComponent';
-import { MdDelete, MdModeEdit } from 'react-icons/md';
-import InputBox from '../../components/InputBox';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { Table } from "../../components/Table";
+import Header from "./components/Header";
+import { toast } from "react-toastify";
+import { useState } from "react";
+import axios from "axios";
+import { getError } from "../../utils/getError";
+import ModalComponent from "../../components/ModalComponent";
+import { MdDelete, MdModeEdit } from "react-icons/md";
+import InputBox from "../../components/InputBox";
+import Spinner from "../../components/Spinner";
 
 const ManageInstructors = () => {
   const columns = [
     {
-      header: 'Nombre',
-      accessorKey: 'packageName',
+      header: "Nombre",
+      accessorKey: "packageName",
     },
 
     {
-      header: 'Precio',
-      accessorKey: 'packagePrice',
+      header: "Precio",
+      accessorKey: "packagePrice",
     },
     {
-      header: 'Cantidad de Clases',
-      accessorKey: 'packageQuantity',
+      header: "Cantidad de Clases",
+      accessorKey: "packageQuantity",
     },
 
     {
-      header: 'Actions',
+      header: "Actions",
       cell: (info) => <CellCustomInstructor dataRow={info?.row?.original} />,
     },
   ];
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['classes'],
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["classes"],
     queryFn: async () =>
       await axios
         ?.get(`${import.meta.env.VITE_BASE_URL}/class-package/`)
@@ -41,7 +42,11 @@ const ManageInstructors = () => {
   });
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Spinner />;
+  }
+
+  if (isError) {
+    return <p>Ocurrió algo...</p>;
   }
 
   console.log(data);
@@ -69,7 +74,7 @@ const CellCustomInstructor = ({ dataRow }) => {
       ),
 
     onSuccess: () => {
-      queryClient.invalidateQueries(['classes']);
+      queryClient.invalidateQueries(["classes"]);
       toast.success(`Editado creado!`);
       setShowModal(!showModal);
     },
@@ -86,10 +91,10 @@ const CellCustomInstructor = ({ dataRow }) => {
     const data = new FormData(e.target);
 
     const dataSend = {
-      packageName: data.get('packageName'),
-      packagePrice: data.get('packagePrice'),
-      packageQuantity: data.get('packageQuantity'),
-      packageDuration: data.get('packageDuration'),
+      packageName: data.get("packageName"),
+      packagePrice: data.get("packagePrice"),
+      packageQuantity: data.get("packageQuantity"),
+      packageDuration: data.get("packageDuration"),
     };
 
     mutate(dataSend);
@@ -103,7 +108,7 @@ const CellCustomInstructor = ({ dataRow }) => {
       ),
 
     onSuccess: () => {
-      queryClient.invalidateQueries(['instructors']);
+      queryClient.invalidateQueries(["instructors"]);
       toast.success(`Exitosamente editado!`);
     },
 
@@ -112,8 +117,9 @@ const CellCustomInstructor = ({ dataRow }) => {
       console.log(err);
     },
   });
+
   const handleDelete = () => {
-    const confirmDelete = confirm('Desea eliminar este paquete?');
+    const confirmDelete = confirm("Desea eliminar este paquete?");
 
     if (!confirmDelete) return;
 
@@ -144,49 +150,49 @@ const CellCustomInstructor = ({ dataRow }) => {
         setShowModal={setShowModal}
         showModal={showModal}
         showBtn={false}
-        titleModal={'Editar Paquetes'}
+        titleModal={"Editar Paquetes"}
       >
         <form onSubmit={handleSubmit}>
           <div className="px-3">
             <InputBox
               propInput={{
-                name: 'packageName',
+                name: "packageName",
                 defaultValue: dataRow.packageName,
                 required: true,
                 disabled: isPending,
               }}
-              labelTitle={'Nombre'}
+              labelTitle={"Nombre"}
             />
 
             <InputBox
               propInput={{
-                name: 'packagePrice',
+                name: "packagePrice",
                 defaultValue: dataRow.packagePrice,
                 required: true,
                 disabled: isPending,
                 min: 10,
-                type: 'number'
+                type: "number",
               }}
-              labelTitle={'Precio'}
+              labelTitle={"Precio"}
             />
 
             <InputBox
               propInput={{
-                name: 'packageQuantity',
+                name: "packageQuantity",
                 defaultValue: dataRow.packageQuantity,
                 required: true,
                 disabled: isPending,
               }}
-              labelTitle={'Cantidad de Clases'}
+              labelTitle={"Cantidad de Clases"}
             />
             <InputBox
               propInput={{
-                name: 'packageDuration',
+                name: "packageDuration",
                 defaultValue: dataRow.packageDuration,
                 required: true,
                 disabled: isPending,
               }}
-              labelTitle={'Duración de Dias'}
+              labelTitle={"Duración de Dias"}
             />
           </div>
           <button className="btn w-full" disabled={isPending}>
