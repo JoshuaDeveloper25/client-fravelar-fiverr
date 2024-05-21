@@ -68,7 +68,7 @@ const Calendar = () => {
           </div>
         </header>
 
-        <div className="animate-pulse bg-primary-dark h-[25rem] gap-5 min-w-[50rem]"></div>
+        <div className="animate-pulse bg-primary-dark h-[25rem] gap-5"></div>
       </div>
     );
 

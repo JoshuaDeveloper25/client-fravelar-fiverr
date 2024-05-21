@@ -20,7 +20,7 @@ const ClassesSection = () => {
 
         <div
           className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-          style={{ gridTemplateRows: '15rem' }}
+          style={{ gridAutoRows: '15rem' }}
         >
           <div className="animate-pulse bg-primary-color/40 rounded-lg"></div>
           <div className="animate-pulse bg-primary-color/40 rounded-lg"></div>

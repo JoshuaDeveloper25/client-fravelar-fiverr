@@ -11,6 +11,18 @@ const HomeCarousel = () => {
     dots: false,
     speed: 500,
     fade: true,
+    responsive: [
+      {
+        breakpoint: 790,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          infinite: false,
+          arrows: false,
+          dots: true
+        }
+      },
+    ]
   };
 
   return (
