@@ -1,4 +1,4 @@
-const ContactForm = () => {
+const ContactForm = ({ handleSubmit, isPending }) => {
   return (
     <section className="py-8">
       <div className="container-page">
@@ -14,7 +14,10 @@ const ContactForm = () => {
       <article className="bg-[#F5F5F5] text-gray-700 sm:py-8 py-0 my-4">
         <div className="container-page">
           <div className="flex flex-col-reverse md:flex-row">
-            <form className="flex-1 shadow-lg rounded space-y-5 px-6 py-6">
+            <form
+              onSubmit={handleSubmit}
+              className="flex-1 shadow-lg rounded space-y-5 px-6 py-6"
+            >
               <div>
                 <h4 className="text-sm pt-1">
                   Te contactaremos a la brevedad.
@@ -30,6 +33,7 @@ const ContactForm = () => {
                     className="bg-white border w-full focus:blue-focus px-2 py-1"
                     type="text"
                     id="name"
+                    name="name"
                   />
                 </div>
 
@@ -42,6 +46,7 @@ const ContactForm = () => {
                       className="bg-white border w-full focus:blue-focus px-2 py-1"
                       type="email"
                       id="email"
+                      name="email"
                     />
                   </div>
 
@@ -53,6 +58,7 @@ const ContactForm = () => {
                       className="bg-white border w-full focus:blue-focus px-2 py-1"
                       type="phone"
                       id="phone"
+                      name="phone"
                     />
                   </div>
                 </div>
@@ -64,6 +70,7 @@ const ContactForm = () => {
                   <textarea
                     className="bg-white border w-full focus:blue-focus px-2 py-1"
                     id="comment"
+                    name="comment"
                   ></textarea>
                 </div>
               </div>
@@ -71,7 +78,8 @@ const ContactForm = () => {
               <div className="flex flex-col">
                 <div>
                   <button
-                    className="text-sm text-white font-medium w-full rounded py-2 px-2 bg-primary-color hover:opacity-60 animation-fade"
+                    className="cursor-pointer text-sm text-white font-medium w-full rounded py-2 px-2 bg-primary-color hover:opacity-60 animation-fade"
+                    disabled={isPending}
                     type="submit"
                   >
                     Contactar
