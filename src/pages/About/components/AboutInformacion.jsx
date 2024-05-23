@@ -1,7 +1,7 @@
 const AboutInformacion = () => {
   return (
     <section className="container-page my-3">
-      <article className="flex gap-5">
+      <article className="flex flex-col md:flex-row gap-5">
         <div className="flex-1">
           <img
             className="w-full rounded"
