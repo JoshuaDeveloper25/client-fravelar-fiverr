@@ -155,7 +155,7 @@ const App = () => {
   return (
     <AppProvider>
       <RouterProvider router={router} />
-      <ToastContainer stacked />
+      <ToastContainer stacked position='top-center'/>
     </AppProvider>
   );
 };

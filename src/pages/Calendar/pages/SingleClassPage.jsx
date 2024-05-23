@@ -53,6 +53,7 @@ const SingleClassPage = ({ isAdmin }) => {
 
     onError: (err) => {
       toast.error(getError(err));
+      classesQuery.refetch();
     },
   });
 
