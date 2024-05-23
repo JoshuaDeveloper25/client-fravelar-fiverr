@@ -9,7 +9,7 @@ import LogInForm from "./components/LogInForm";
 const LogIn = () => {
   const { setUserInfo } = useContext(AppContext);
 
-  const { data, mutate, error, isLoading } = useMutation({
+  const { data, mutate, error, isPending } = useMutation({
     mutationFn: async (userInfo) =>
       await axios?.post(
         `${import.meta.env.VITE_BASE_URL}/users/login`,
@@ -53,7 +53,7 @@ const LogIn = () => {
       </div>
 
       <article className="bg-[#F5F5F5] text-gray-700 sm:py-8 py-0 my-4">
-        <LogInForm handleSubmit={handleSubmit} isLoading={isLoading} />
+        <LogInForm handleSubmit={handleSubmit} isLoading={isPending} />
       </article>
     </section>
   );

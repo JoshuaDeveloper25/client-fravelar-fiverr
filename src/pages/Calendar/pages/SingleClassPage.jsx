@@ -36,12 +36,12 @@ const SingleClassPage = ({ isAdmin }) => {
       await axios.patch(
         `${import.meta.env.VITE_BASE_URL}/class-schedule/${id}`,
         {
+          noBici,
+        },
+        {
           params: {
             currentDate: moment().format('YYYY-MM-DDTHH:mm:ssZ'),
           },
-        },
-        {
-          noBici,
         }
       ),
 
@@ -73,13 +73,12 @@ const SingleClassPage = ({ isAdmin }) => {
     return <Navigate to={'/comprar-clases'} />;
   }
 
+  console.log(classInfo.data);
+
   return (
     <div className="container-page my-10">
       <header className="mb-10">
-        <Link
-          to={-1}
-          className="btn-back"
-        >
+        <Link to={-1} className="btn-back">
           Regresar
         </Link>
 

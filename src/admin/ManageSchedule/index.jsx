@@ -48,7 +48,7 @@ const ManageSchedule = () => {
         return (
           <Link
             to={`/admin/administrar-calendario/${value?._id}`}
-            className="bg-blue-500 text-white px-2 rounded-lg"
+            className="bg-blue-500 text-white px-2 rounded-lg block text-center"
           >
             Ver Gente ({value?.bicis.length})
           </Link>
