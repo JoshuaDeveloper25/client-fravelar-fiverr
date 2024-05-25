@@ -6,7 +6,7 @@ import { FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="container-page  mt-auto py-3">
+    <footer className="container-page  mt-auto py-10">
       <div className="grid grid-cols-1 md:grid-cols-6 sm:grid-cols-2 sm:place-content-start place-content-center sm:place-items-start place-items-center gap-10">
         <div className="sm:col-span-3 col-span-1 h-full md:border-e border-e-none sm:px-4">
           <h2 className="uppercase font-medium text-xl mb-3 text-center sm:text-start">

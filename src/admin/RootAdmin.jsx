@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate, Navigate, NavLink } from 'react-router-dom';
+import { Link, Outlet, useNavigate, Navigate, NavLink, ScrollRestoration } from 'react-router-dom';
 import { Menu, Sidebar } from 'react-pro-sidebar';
 import AppContext from '../context/AppProvider';
 import { useContext, useState } from 'react';
@@ -124,6 +124,8 @@ const RootAdmin = () => {
       <main className="px-5">
         <Outlet />
       </main>
+
+      <ScrollRestoration />
     </div>
   );
 };
