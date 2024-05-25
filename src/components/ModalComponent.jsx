@@ -30,7 +30,6 @@ const ModalComponent = ({
             data-modal-target="default-modal"
             data-modal-toggle="default-modal"
             onClick={mostrarModal}
-            style={{ backfaceVisibility: 'hidden' }}
             className={className}
             type="button"
           >
@@ -67,7 +66,7 @@ const ModalComponent = ({
                   <button
                     type="button"
                     data-modal-hide="default-modal"
-                    className='absolute -top-3 right-2'
+                    className="absolute -top-3 right-2"
                     onClick={() => {
                       setShowModal(!showModal);
                       onClose();

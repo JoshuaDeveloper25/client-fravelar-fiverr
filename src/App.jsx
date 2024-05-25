@@ -117,10 +117,10 @@ const router = createBrowserRouter([
       {
         element: <PrivateRoutes />,
         children: [
-          {
-            element: <HomeAdmin />,
-            index: true,
-          },
+          // {
+          //   element: <HomeAdmin />,
+          //   index: true,
+          // },
 
           {
             element: <ManageInstructors />,

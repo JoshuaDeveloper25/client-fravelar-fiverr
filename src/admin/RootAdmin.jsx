@@ -35,16 +35,16 @@ const RootAdmin = () => {
           toggled={toggled}
         >
           <Menu className="text-white">
-            <div className="flex flex-col h-svh">
-              <NavLink className="block mx-3 mt-4" to={`/admin/`}>
+            <div className="flex flex-col min-h-svh">
+              <div className="block mx-3 mt-4">
                 <img
                   loading="lazy"
                   decoding="async"
-                  className="w-32 mb-3"
+                  className="w-32 mb-3 mx-auto"
                   src={logo}
                   alt={`Logo`}
                 />
-              </NavLink>
+              </div>
 
               <NavLink
                 to={`/inicio`}
