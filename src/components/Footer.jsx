@@ -1,7 +1,7 @@
 import { BsFillTelephoneFill } from "react-icons/bs";
 import { IoLocationSharp } from "react-icons/io5";
-import { NavLink } from "react-router-dom";
-import { FaFacebookF } from "react-icons/fa";
+import { Link, NavLink } from "react-router-dom";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 
 const Footer = () => {
@@ -20,11 +20,8 @@ const Footer = () => {
 
             <div>
               <p className="text-[.8rem] sm:text-start text-center text-gray-400">
-                Centro Ottawa - Av. Pablo Neruda 2144, esq. Ottawa, Col.
-                <span className="">
-                  {" "}
-                  Providencia, 44630 Guadalajara México.
-                </span>
+                Local Comercial 9 "Plaza San Miguel" ubicado en Avenida San
+                Pedro No 35, colonia San Miguel 45300 Tala, Jalisco*
               </p>
             </div>
           </div>
@@ -35,12 +32,7 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="text-[.8rem] text-gray-400">
-                +(52) 01 33 2306 3085
-              </p>
-              <p className="text-[.8rem] text-gray-400">
-                +(52) 01 33 2306 3086
-              </p>
+              <p className="text-[.8rem] text-gray-400">+(52) 33 3176 2402</p>
             </div>
           </div>
         </div>
@@ -60,12 +52,8 @@ const Footer = () => {
           </NavLink>
 
           <NavLink
-            to={`/reservar`}
-            className={({ isActive }) =>
-              isActive
-                ? "text-[.8rem] text-primary-color animation-fade font-bold"
-                : "text-[.8rem] text-black hover:text-primary-color animation-fade"
-            }
+            to={`/calendario`}
+            className="text-[.8rem] text-black hover:text-primary-color animation-fade"
           >
             Reservar
           </NavLink>
@@ -104,11 +92,9 @@ const Footer = () => {
           </NavLink>
 
           <NavLink
-            to={`/noticias`}
-            className={({ isActive }) =>
-              isActive
-                ? "text-[.8rem] text-primary-color animation-fade font-bold"
-                : "text-[.8rem] text-black hover:text-primary-color animation-fade"
+            to={`#`}
+            className={
+              "text-[.8rem] text-black hover:text-primary-color animation-fade"
             }
           >
             Noticias
@@ -139,13 +125,21 @@ const Footer = () => {
 
         <div className="sm:col-span-1 col-span-1 sm:pb-0 pb-3">
           <div className="flex flex-col sm:flex-row gap-2">
-            <button className="bg-[#3C5B9B] hover:bg-[#3C5B9B]/60 animation-fade p-2 rounded-full">
+            {/* <button className="bg-[#3C5B9B] hover:bg-[#3C5B9B]/60 animation-fade p-2 rounded-full">
               <FaFacebookF className="text-white size-4" />
             </button>
 
             <button className="bg-[#359BED] hover:bg-[#359BED]/60 animation-fade p-2 rounded-full">
               <FaTwitter className="text-white size-4" />
-            </button>
+            </button> */}
+            <Link
+              target="_blank"
+              to={"https://www.instagram.com/lt_cycle/?igsh=N3VqNHRvNG5saWc4"}
+            >
+              <button className="bg-[#359BED] hover:bg-[#359BED]/60 animation-fade p-2 rounded-full">
+                <FaInstagram className="text-white size-4" />
+              </button>
+            </Link>
           </div>
         </div>
       </div>

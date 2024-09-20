@@ -1,26 +1,22 @@
+import coach3 from "../../../images/coach-prev3.jpg";
+
 const AboutInformacion = () => {
   return (
-    <section className="container-page my-3">
+    <section className="container-page my-3 py-10">
       <article className="flex flex-col md:flex-row gap-5">
         <div className="flex-1">
-          <img
-            className="w-full rounded"
-            src={
-              "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            }
-          />
+          <img className="w-full rounded" src={coach3} />
         </div>
 
         <div className="flex-1 flex flex-col items-center justify-center text-center">
           <p className="text-xl font-bold text-gray-700 mb-2">
-            INSPIRACIÓN es lo que nos impulsa a crear SENSE CYCLE, mezclando
-            todo lo que nos hace vibrar cada día.
+            LT Cycle es una comunidad donde buscamos conectar tu cuerpo y mente,
+            desafiando tus límites, logrando alcanzar la mejor versión de ti, y
+            superando tus expectativas donde puedes ser tu mismo.
           </p>
           <p className="text-sm">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
-            excepturi omnis, non eum iste et molestiae maiores doloremque
-            commodi quam alias doloribus vitae deserunt ipsam. Modi adipisci
-            quia impedit architecto.
+            ¡Únete a nuestra comunidad para disfrutar, aprender y divertirnos
+            juntos!
           </p>
         </div>
       </article>

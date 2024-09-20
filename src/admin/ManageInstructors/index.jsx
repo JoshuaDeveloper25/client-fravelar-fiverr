@@ -52,7 +52,7 @@ const ManageInstructors = () => {
   }
 
   if (isError) {
-    return <p>Ocurrió algo...</p>
+    return <p>Ocurrió algo...</p>;
   }
 
   console.log(data);
@@ -100,7 +100,7 @@ const CellCustomInstructor = ({ dataRow }) => {
 
     onSuccess: () => {
       queryClient.invalidateQueries(["instructors"]);
-      toast.success(`Exitosamente editado!`);
+      toast.success(`Exitosamente eliminado!`);
     },
 
     onError: (err) => {
@@ -144,13 +144,13 @@ const CellCustomInstructor = ({ dataRow }) => {
         >
           <MdModeEdit />
         </button>
-        <button
+        {/* <button
           disabled={deleteMutation.isPending}
           onClick={handleDelete}
           className="text-primary-color"
         >
           <MdDelete />
-        </button>
+        </button> */}
       </div>
 
       <ModalComponent

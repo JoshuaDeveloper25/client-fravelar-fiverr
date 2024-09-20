@@ -1,33 +1,34 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { AppProvider } from './context/AppProvider';
-import { ToastContainer } from 'react-toastify';
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { AppProvider } from "./context/AppProvider";
+import { ToastContainer } from "react-toastify";
 
 // --> Pages from App
-import Root from './pages/Root';
-import LogIn from './pages/LogIn/LogIn';
-import SignUp from './pages/SignUp/SignUp';
-import Home from './pages/Home/Home';
-import About from './pages/About/About';
-import Contact from './pages/Contact/Contact';
-import Instructors from './pages/Instructors/Instructors';
+import Root from "./pages/Root";
+import LogIn from "./pages/LogIn/LogIn";
+import SignUp from "./pages/SignUp/SignUp";
+import Home from "./pages/Home/Home";
+import About from "./pages/About/About";
+import Contact from "./pages/Contact/Contact";
+import Instructors from "./pages/Instructors/Instructors";
 
-import RootAdmin from './admin/RootAdmin';
-import HomeAdmin from './admin/HomeAdmin/HomeAdmin';
-import ManageClasses from './admin/ManageClasses';
-import ManageInstructors from './admin/ManageInstructors';
-import SingleInstructor from './pages/Instructors/pages/SingleInstructor';
+import RootAdmin from "./admin/RootAdmin";
+import HomeAdmin from "./admin/HomeAdmin/HomeAdmin";
+import ManageClasses from "./admin/ManageClasses";
+import ManageInstructors from "./admin/ManageInstructors";
+import SingleInstructor from "./pages/Instructors/pages/SingleInstructor";
 
-import { PrivateRoutes } from './auth/PrivateRoutes';
-import { PublicRoutes } from './auth/PublicRoutes';
-import ManageNews from './admin/ManageNews';
-import SingleNew from './pages/News/News';
-import Calendar from './pages/Calendar/Calendar';
-import ConfirmAccount from './pages/ConfirmAccount/ConfirmAccount';
-import EmailSent from './pages/EmailSent/EmailSent';
-import SingleClassPage from './pages/Calendar/pages/SingleClassPage';
-import ManageSchedule from './admin/ManageSchedule';
-import SinglePack from './pages/Pack/pages/SinglePack';
-import ClassesSection from './components/ClassesSection';
+import { PrivateRoutes } from "./auth/PrivateRoutes";
+import { PublicRoutes } from "./auth/PublicRoutes";
+import ManageNews from "./admin/ManageNews";
+import SingleNew from "./pages/News/News";
+import Calendar from "./pages/Calendar/Calendar";
+import ConfirmAccount from "./pages/ConfirmAccount/ConfirmAccount";
+import EmailSent from "./pages/EmailSent/EmailSent";
+import SingleClassPage from "./pages/Calendar/pages/SingleClassPage";
+import ManageSchedule from "./admin/ManageSchedule";
+import SinglePack from "./pages/Pack/pages/SinglePack";
+import ClassesSection from "./components/ClassesSection";
+import TermsAndConditions from "./pages/TermsAndConditions/TermsAndConditions";
 
 const router = createBrowserRouter([
   {
@@ -43,15 +44,15 @@ const router = createBrowserRouter([
 
           {
             element: <SignUp />,
-            path: '/registrarse',
+            path: "/registrarse",
           },
           {
             element: <ConfirmAccount />,
-            path: '/confirmaccount/:token',
+            path: "/confirmaccount/:token",
           },
           {
             element: <EmailSent />,
-            path: '/emailenviado',
+            path: "/emailenviado",
           },
         ],
       },
@@ -61,57 +62,61 @@ const router = createBrowserRouter([
         children: [
           {
             element: <SinglePack />,
-            path: '/comprar-paquete/:id',
+            path: "/comprar-paquete/:id",
           },
           {
             element: <SingleClassPage />,
-            path: '/reservar/:id',
+            path: "/reservar/:id",
           },
         ],
       },
 
       {
-        path: 'comprar-clases',
+        path: "comprar-clases",
         element: <ClassesSection />,
       },
 
       {
         element: <Home />,
-        path: '/inicio',
+        path: "/inicio",
       },
 
       {
         element: <About />,
-        path: '/quienes-somos',
+        path: "/quienes-somos",
       },
 
       {
         element: <Instructors />,
-        path: '/instructores',
+        path: "/instructores",
       },
 
       {
         element: <SingleInstructor />,
-        path: '/instructores/:id',
+        path: "/instructores/:id",
       },
       {
         element: <SingleNew />,
-        path: '/new/:id',
+        path: "/new/:id",
       },
       {
         element: <Calendar />,
-        path: '/calendario/:date?',
+        path: "/calendario/:date?",
+      },
+      {
+        element: <TermsAndConditions />,
+        path: "/terminos-condiciones",
       },
       {
         element: <Contact />,
-        path: '/contacto',
+        path: "/contacto",
       },
     ],
   },
 
   {
     // --> Admin Panel
-    path: '/admin/',
+    path: "/admin/",
     element: <RootAdmin />,
     children: [
       {
@@ -124,26 +129,26 @@ const router = createBrowserRouter([
 
           {
             element: <ManageInstructors />,
-            path: 'administrar-instructores',
+            path: "administrar-instructores",
           },
 
           {
             element: <ManageClasses />,
-            path: 'administrar-paquetes',
+            path: "administrar-paquetes",
           },
           {
             element: <ManageSchedule />,
-            path: 'administrar-calendario',
+            path: "administrar-calendario",
           },
 
           {
-            element: <SingleClassPage isAdmin={true}/>,
-            path: 'administrar-calendario/:id',
+            element: <SingleClassPage isAdmin={true} />,
+            path: "administrar-calendario/:id",
           },
 
           {
             element: <ManageNews />,
-            path: 'administrar-noticias',
+            path: "administrar-noticias",
           },
         ],
       },
@@ -155,7 +160,7 @@ const App = () => {
   return (
     <AppProvider>
       <RouterProvider router={router} />
-      <ToastContainer stacked position='top-center'/>
+      <ToastContainer stacked position="top-center" />
     </AppProvider>
   );
 };

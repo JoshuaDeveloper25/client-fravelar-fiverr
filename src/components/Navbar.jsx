@@ -311,7 +311,7 @@ const Navbar = () => {
               }
               to={`/calendario`}
             >
-              Reservar Sense Cycle
+              Reservar 
             </NavLink>
 
             <NavLink

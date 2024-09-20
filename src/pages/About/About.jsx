@@ -5,7 +5,7 @@ const About = () => {
   return (
     <>
       {/* About Header */}
-      <AboutHeader />
+      {/* <AboutHeader /> */}
 
       {/* About Información */}
       <AboutInformacion />
