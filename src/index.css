@@ -7,6 +7,10 @@
   color: #ffffff;
 }
 
+body {
+  background-color: #eee;
+}
+
 @layer components {
   .container-page {
     @apply max-w-[1200px] mx-auto px-3;
@@ -75,6 +79,3 @@
   transform: scale(1.2);
 }
 
-body {
-  background-color: #eee;
-}
