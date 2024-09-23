@@ -23,13 +23,14 @@ const SingleInstructor = () => {
           Regresar
         </Link>
         <div className="flex flex-col md:flex-row gap-10">
-          <article className='self-center'>
+          <article className='flex-1 self-center'>
             <img
-              className="h-80 w-[15rem] object-cover"
+              className="h-80 w-[15rem] object-cover rounded-md shadow-lg"
               src={data?.data?.image?.[0]?.cloudinary_url}
             />
           </article>
-          <article>
+
+          <article className='flex-[55%]'>
             <h2 className="text-2xl font-bold capitalize">
               {data?.data?.instructorName}
             </h2>
