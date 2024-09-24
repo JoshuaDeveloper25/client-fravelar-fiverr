@@ -59,13 +59,6 @@ const LogInForm = ({ handleSubmit, isLoading }) => {
               Creála aquí
             </Link>
           </p>
-
-          <h3 className="text-sm">
-            ¿Olvidaste tu{" "}
-            <Link to={`/olvide-password`} className="">
-              <span className="text-primary-color">contraseña</span>?
-            </Link>
-          </h3>
         </div>
 
         <div>
