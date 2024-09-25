@@ -29,6 +29,7 @@ import ManageSchedule from "./admin/ManageSchedule";
 import SinglePack from "./pages/Pack/pages/SinglePack";
 import ClassesSection from "./components/ClassesSection";
 import TermsAndConditions from "./pages/TermsAndConditions/TermsAndConditions";
+import ReservedClasses from "./pages/ReservedClasses/ReservedClasses";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
           {
             element: <SingleClassPage />,
             path: "/reservar/:id",
+          },
+          {
+            element: <ReservedClasses />,
+            path: "/clases-reservadas/",
           },
         ],
       },

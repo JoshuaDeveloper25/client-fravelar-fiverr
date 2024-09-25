@@ -1,17 +1,17 @@
 /* eslint-disable react/prop-types */
-import { Link, Navigate, useParams } from 'react-router-dom';
-import cycle from '../../../images/stationary-bike.png';
+import { Link, Navigate, useParams } from "react-router-dom";
+import cycle from "../../../images/stationary-bike.png";
 
-import { IoMdBicycle } from 'react-icons/io';
-import { BsBicycle } from 'react-icons/bs';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
-import { toast } from 'react-toastify';
-import { getError } from '../../../utils/getError';
-import { useContext } from 'react';
-import AppContext from '../../../context/AppProvider';
-import moment from 'moment';
-import Spinner from '../../../components/Spinner';
+import { IoMdBicycle } from "react-icons/io";
+import { BsBicycle } from "react-icons/bs";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { getError } from "../../../utils/getError";
+import { useContext } from "react";
+import AppContext from "../../../context/AppProvider";
+import moment from "moment";
+import Spinner from "../../../components/Spinner";
 
 const SingleClassPage = ({ isAdmin }) => {
   const queryClient = useQueryClient();
@@ -20,11 +20,11 @@ const SingleClassPage = ({ isAdmin }) => {
   console.log(id);
 
   const classesQuery = useQuery({
-    queryKey: ['qunatityClass', userInfo?.token],
+    queryKey: ["qunatityClass", userInfo?.token],
     queryFn: async () =>
       await axios(`${import.meta.env.VITE_BASE_URL}/users/get-saldo`, {
         params: {
-          currentDate: moment().format('YYYY-MM-DDTHH:mm:ssZ'),
+          currentDate: moment().format("YYYY-MM-DDTHH:mm:ssZ"),
         },
       }).then((res) => res.data),
 
@@ -40,15 +40,15 @@ const SingleClassPage = ({ isAdmin }) => {
         },
         {
           params: {
-            currentDate: moment().format('YYYY-MM-DDTHH:mm:ssZ'),
+            currentDate: moment().format("YYYY-MM-DDTHH:mm:ssZ"),
           },
         }
       ),
 
     onSuccess: (data) => {
       console.log(data);
-      toast.success('Reservado');
-      queryClient.invalidateQueries(['singleClass', id]);
+      toast.success("Reservado");
+      queryClient.invalidateQueries(["singleClass", id]);
     },
 
     onError: (err) => {
@@ -58,7 +58,7 @@ const SingleClassPage = ({ isAdmin }) => {
   });
 
   const classInfo = useQuery({
-    queryKey: ['singleClass', id],
+    queryKey: ["singleClass", id],
     queryFn: async () =>
       await axios(`${import.meta.env.VITE_BASE_URL}/class-schedule/${id}`).then(
         (res) => res.data
@@ -70,8 +70,8 @@ const SingleClassPage = ({ isAdmin }) => {
   if (classesQuery.isError || classInfo.isError) return <p>Error</p>;
 
   if (classesQuery?.data.tusClases?.classQuantity === 0 && !isAdmin) {
-    toast.warning('No tienes clases comprados');
-    return <Navigate to={'/comprar-clases'} />;
+    toast.warning("No tienes clases comprados");
+    return <Navigate to={"/comprar-clases"} />;
   }
 
   console.log(classInfo.data);
@@ -130,10 +130,10 @@ const CycleBox = ({
   isAdmin,
   data,
 }) => {
-  let text = 'Ocupado';
+  let text = "Ocupado";
 
   if (isInstructor && !isAdmin) {
-    text = 'Instructor';
+    text = "Instructor";
   }
 
   if (isAdmin) {
@@ -141,14 +141,16 @@ const CycleBox = ({
     console.log(data);
   }
 
-  console.log(isTaken, 'esta tomado');
+  console.log(isTaken, "esta tomado");
   if (isTaken >= 0)
     return (
       <div className="text-center">
-        <span className="font-semibold">{positionCycle}</span>
+        <span className="font-semibold">
+          {typeof positionCycle === "number" && positionCycle + 1}
+        </span>
         <div
           className={`${
-            isInstructor ? 'bg-primary-dark' : 'bg-red-500'
+            isInstructor ? "bg-primary-dark" : "bg-red-500"
           } p-2 rounded-lg text-5xl text-white w-fit mx-auto`}
         >
           <IoMdBicycle />
@@ -160,16 +162,18 @@ const CycleBox = ({
   return (
     <button
       disabled={isDisabled}
-      className={`${isAdmin ? 'pointer-events-none' : null}`}
+      className={`${isAdmin ? "pointer-events-none" : null}`}
       onClick={() => {
-        const confirmReq = confirm('Seguro que deseas esta Bici?');
+        const confirmReq = confirm("Seguro que deseas esta Bici?");
 
         if (!confirmReq) return;
 
         onReservate.mutate(positionCycle);
       }}
     >
-      <span className="font-semibold">{positionCycle}</span>
+      <span className="font-semibold">
+        {typeof positionCycle === "number" && positionCycle + 1}
+      </span>
       <div
         className={`p-2 rounded-lg text-5xl bg-slate-200 hover:bg-green-500 hover:text-white transition-all cursor-pointer w-fit mx-auto`}
       >

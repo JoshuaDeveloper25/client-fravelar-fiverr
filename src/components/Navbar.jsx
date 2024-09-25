@@ -1,12 +1,12 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-import logoNavbar from '../images/cycle-logo4.png';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import AppContext from '../context/AppProvider';
-import { useContext, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { FaUser } from 'react-icons/fa';
-import { toast } from 'react-toastify';
-import ClassQuantity from './ClassQuantity';
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import logoNavbar from "../images/cycle-logo4.png";
+import { GiHamburgerMenu } from "react-icons/gi";
+import AppContext from "../context/AppProvider";
+import { useContext, useState } from "react";
+import { createPortal } from "react-dom";
+import { FaUser } from "react-icons/fa";
+import { toast } from "react-toastify";
+import ClassQuantity from "./ClassQuantity";
 
 const Navbar = () => {
   const { userInfo, setUserInfo } = useContext(AppContext);
@@ -16,8 +16,8 @@ const Navbar = () => {
   const signOut = () => {
     navigate(`/`);
     setUserInfo({});
-    localStorage.removeItem('userInfo');
-    toast.success('Sesión cerrada exitosamente!');
+    localStorage.removeItem("userInfo");
+    toast.success("Sesión cerrada exitosamente!");
   };
 
   return (
@@ -26,7 +26,7 @@ const Navbar = () => {
         <div className="md:flex hidden justify-between gap-3 text-white">
           <div className="flex items-center gap-14">
             <div>
-              <Link to={'/inicio'}>
+              <Link to={"/inicio"}>
                 <img
                   loading="lazy"
                   decoding="async"
@@ -41,8 +41,8 @@ const Navbar = () => {
                 to={`/calendario`}
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-sm text-primary-color font-bold animation-fade'
-                    : 'text-sm text-black hover:text-primary-color animation-fade'
+                    ? "text-sm text-primary-color font-bold animation-fade"
+                    : "text-sm text-black hover:text-primary-color animation-fade"
                 }
               >
                 Reservar
@@ -51,8 +51,8 @@ const Navbar = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-sm text-primary-color font-bold animation-fade'
-                    : 'text-sm text-black hover:text-primary-color animation-fade'
+                    ? "text-sm text-primary-color font-bold animation-fade"
+                    : "text-sm text-black hover:text-primary-color animation-fade"
                 }
                 to={`/comprar-clases`}
               >
@@ -62,8 +62,8 @@ const Navbar = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-sm text-primary-color font-bold animation-fade'
-                    : 'text-sm text-black hover:text-primary-color animation-fade'
+                    ? "text-sm text-primary-color font-bold animation-fade"
+                    : "text-sm text-black hover:text-primary-color animation-fade"
                 }
                 to={`/instructores`}
               >
@@ -73,8 +73,8 @@ const Navbar = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-sm text-primary-color font-bold animation-fade'
-                    : 'text-sm text-black hover:text-primary-color animation-fade'
+                    ? "text-sm text-primary-color font-bold animation-fade"
+                    : "text-sm text-black hover:text-primary-color animation-fade"
                 }
                 to={`/quienes-somos`}
               >
@@ -84,8 +84,8 @@ const Navbar = () => {
               <NavLink
                 className={({ isActive }) =>
                   isActive
-                    ? 'text-sm text-primary-color font-bold animation-fade'
-                    : 'text-sm text-black hover:text-primary-color animation-fade'
+                    ? "text-sm text-primary-color font-bold animation-fade"
+                    : "text-sm text-black hover:text-primary-color animation-fade"
                 }
                 to={`/contacto`}
               >
@@ -105,7 +105,7 @@ const Navbar = () => {
 
               <div
                 className={`${
-                  userInfo?.token ? null : 'w-32'
+                  userInfo?.token ? null : "w-32"
                 } invisible absolute right-0 z-50 py-2 px-2 border rounded  shadow-3xl group-hover:visible bg-white`}
               >
                 {userInfo?.token ? (
@@ -132,16 +132,23 @@ const Navbar = () => {
                     </Link>
                   </>
                 )}
-                {userInfo?.role === 'admin' ? (
+                {userInfo?.role === "admin" ? (
                   <Link
                     to={`/admin/administrar-instructores`}
-                    className="text-sm block py-2 font-semibold text-black hover:text-primary-color"
+                    className="text-sm block font-semibold text-black hover:text-primary-color"
                   >
                     Panel Admin
                   </Link>
                 ) : null}
                 {userInfo?.token ? (
                   <>
+                    <Link
+                      to={`/clases-reservadas/`}
+                      className="text-sm block font-semibold py-2 text-black hover:text-primary-color"
+                    >
+                      Clases Reservadas
+                    </Link>
+
                     <button
                       onClick={signOut}
                       className="text-sm block py-1 font-semibold text-red-500 hover:text-red-700"
@@ -181,7 +188,7 @@ const Navbar = () => {
 
               <div
                 className={`${
-                  userInfo?.token ? null : 'w-32'
+                  userInfo?.token ? null : "w-32"
                 } invisible absolute right-0 z-50 py-2 px-2 border rounded  shadow-3xl group-hover:visible bg-white`}
               >
                 {userInfo?.token ? (
@@ -208,7 +215,7 @@ const Navbar = () => {
                     </Link>
                   </>
                 )}
-                {userInfo?.role === 'admin' ? (
+                {userInfo?.role === "admin" ? (
                   <Link
                     to={`/admin/administrar-instructores`}
                     className="text-sm block py-2 font-semibold text-black hover:text-primary-color"
@@ -247,7 +254,7 @@ const Navbar = () => {
         <div
           id="drawer-example"
           className={`lg:hidden w-full fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform duration-500 bg-white sm:w-80 ${
-            !navbarOpen ? '-translate-x-full' : null
+            !navbarOpen ? "-translate-x-full" : null
           }`}
           tabIndex="-1"
           aria-labelledby="drawer-label"
@@ -294,8 +301,8 @@ const Navbar = () => {
               onClick={() => setNavbarOpen(false)}
               className={({ isActive }) =>
                 isActive
-                  ? 'text-primary-color border-b-primary-color border-b pb-1 font-bold'
-                  : 'text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium'
+                  ? "text-primary-color border-b-primary-color border-b pb-1 font-bold"
+                  : "text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium"
               }
               to={`/inicio`}
             >
@@ -306,20 +313,20 @@ const Navbar = () => {
               onClick={() => setNavbarOpen(false)}
               className={({ isActive }) =>
                 isActive
-                  ? 'text-primary-color border-b-primary-color border-b pb-1 font-bold'
-                  : 'text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium'
+                  ? "text-primary-color border-b-primary-color border-b pb-1 font-bold"
+                  : "text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium"
               }
               to={`/calendario`}
             >
-              Reservar 
+              Reservar
             </NavLink>
 
             <NavLink
               onClick={() => setNavbarOpen(false)}
               className={({ isActive }) =>
                 isActive
-                  ? 'text-primary-color border-b-primary-color border-b pb-1 font-bold'
-                  : 'text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium'
+                  ? "text-primary-color border-b-primary-color border-b pb-1 font-bold"
+                  : "text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium"
               }
               to={`/comprar-clases`}
             >
@@ -330,8 +337,8 @@ const Navbar = () => {
               onClick={() => setNavbarOpen(false)}
               className={({ isActive }) =>
                 isActive
-                  ? 'text-primary-color border-b-primary-color border-b pb-1 font-bold'
-                  : 'text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium'
+                  ? "text-primary-color border-b-primary-color border-b pb-1 font-bold"
+                  : "text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium"
               }
               to={`/instructores`}
             >
@@ -342,8 +349,8 @@ const Navbar = () => {
               onClick={() => setNavbarOpen(false)}
               className={({ isActive }) =>
                 isActive
-                  ? 'text-primary-color border-b-primary-color border-b pb-1 font-bold'
-                  : 'text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium'
+                  ? "text-primary-color border-b-primary-color border-b pb-1 font-bold"
+                  : "text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium"
               }
               to={`/quienes-somos`}
             >
@@ -354,12 +361,12 @@ const Navbar = () => {
               onClick={() => setNavbarOpen(false)}
               className={({ isActive }) =>
                 isActive
-                  ? 'text-primary-color border-b-primary-color border-b pb-1 font-bold'
-                  : 'text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium'
+                  ? "text-primary-color border-b-primary-color border-b pb-1 font-bold"
+                  : "text-black border-b-secondary-color/15 hover:text-primary-color pb-1 hover:border-b-primary-color animation-fade border-b font-medium"
               }
               to={`/contacto`}
             >
-              Conctacto
+              Contacto
             </NavLink>
           </div>
         </div>

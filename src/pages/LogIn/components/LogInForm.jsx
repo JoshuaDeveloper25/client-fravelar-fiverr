@@ -56,7 +56,7 @@ const LogInForm = ({ handleSubmit, isLoading }) => {
           <p className="text-sm">
             No tienes cuenta?{" "}
             <Link to={`/registrarse`} className="border-b border-b-gray-700">
-              Creála aquí
+              Créala aquí
             </Link>
           </p>
         </div>

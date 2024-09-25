@@ -31,7 +31,7 @@ export const Table = ({ columns = [], data = [] }) => {
   return (
     <div className="mt-6 overflow-x-auto">
       {/* --> Input search */}
-      {data?.length !== 0 && (
+      {/* {data?.length !== 0 && (
         <>
           <input
             type="search"
@@ -41,7 +41,7 @@ export const Table = ({ columns = [], data = [] }) => {
             placeholder="Name"
           />
         </>
-      )}
+      )} */}
 
       <table className="min-w-[30rem] w-full border-collapse border-spacing-0">
         {/* Head */}
@@ -78,7 +78,7 @@ export const Table = ({ columns = [], data = [] }) => {
           {table.getRowModel().rows.map((row) => (
             <tr key={row.id} className={`border-b border-b-gray-300 ${row.id}`}>
               {row.getVisibleCells().map((cell) => (
-                <td key={cell.id} className={`py-3 px-3`}>
+                <td key={cell.id} className={`py-3 px-3 text-start`}>
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>
               ))}
