@@ -225,6 +225,13 @@ const Navbar = () => {
                 ) : null}
                 {userInfo?.token ? (
                   <>
+                    <Link
+                      to={`/clases-reservadas/`}
+                      className="text-sm block font-semibold py-2 text-black hover:text-primary-color"
+                    >
+                      Clases Reservadas
+                    </Link>
+
                     <button
                       onClick={signOut}
                       className="text-sm block py-1 font-semibold text-red-500 hover:text-red-700"
