@@ -19,10 +19,15 @@ const Footer = () => {
             </div>
 
             <div>
-              <p className="text-[.8rem] sm:text-start text-center text-gray-400">
-                Local Comercial 9 "Plaza San Miguel" ubicado en Avenida San
-                Pedro No 35, colonia San Miguel 45300 Tala, Jalisco*
-              </p>
+              <Link
+                to={"https://maps.app.goo.gl/n28R5nd8gx6oRQmB8"}
+                target="_blank"
+              >
+                <p className="text-[.8rem] sm:text-start text-center text-gray-400">
+                  Local Comercial 9 "Plaza San Miguel" ubicado en Avenida San
+                  Pedro No 35, colonia San Miguel 45300 Tala, Jalisco
+                </p>
+              </Link>
             </div>
           </div>
 

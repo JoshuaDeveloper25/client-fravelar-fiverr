@@ -54,7 +54,7 @@ const LogInForm = ({ handleSubmit, isLoading }) => {
       <div>
         <div className="flex flex-col sm:flex-row justify-between">
           <p className="text-sm">
-            No tienes cuenta?{" "}
+            ¿No tienes cuenta?{" "}
             <Link to={`/registrarse`} className="border-b border-b-gray-700">
               Créala aquí
             </Link>
