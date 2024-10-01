@@ -34,7 +34,7 @@ const ReservedClasses = () => {
     {
       header: <h3 className="px-3">N° Bici</h3>,
       accessorKey: "biciId",
-      cell: (row) => row?.cell?.row?.original?.bicis?.[0]?.noBici,
+      cell: (row) => row?.cell?.row?.original?.bicis?.[0]?.noBici + 1,
     },
     {
       header: "Actions",
@@ -63,7 +63,7 @@ const ReservedClasses = () => {
           );
 
           if (!user_quest) return;
-          
+
           mutate({});
         };
 

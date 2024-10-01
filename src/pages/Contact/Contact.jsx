@@ -40,6 +40,9 @@ const Contact = () => {
       phone: e?.target?.phone?.value,
       comment: e?.target?.comment?.value,
     });
+
+    // Reset form if success
+    e?.target?.reset();
   };
   return (
     // Contacto Formulario
