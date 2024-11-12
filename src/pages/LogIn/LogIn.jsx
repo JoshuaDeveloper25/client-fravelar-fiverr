@@ -16,9 +16,9 @@ const LogIn = () => {
         userInfo
       ),
     onSuccess: (data) => {
+      localStorage.setItem("userInfo", JSON.stringify(data?.data));
       toast.success("Sesión iniciada correctamente!");
       setUserInfo(data?.data);
-      localStorage.setItem("userInfo", JSON.stringify(data?.data));
     },
     onError: (err) => {
       toast.error(getError(err));
