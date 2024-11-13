@@ -30,6 +30,9 @@ import SinglePack from "./pages/Pack/pages/SinglePack";
 import ClassesSection from "./components/ClassesSection";
 import TermsAndConditions from "./pages/TermsAndConditions/TermsAndConditions";
 import ReservedClasses from "./pages/ReservedClasses/ReservedClasses";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
+import ForgotPasswordSentEmailSuccess from "./pages/ForgotPasswordSentEmailSuccess/ForgotPasswordSentEmailSuccess";
+import ChangePassword from "./pages/ChangePassword/ChangePassword";
 
 const router = createBrowserRouter([
   {
@@ -47,13 +50,30 @@ const router = createBrowserRouter([
             element: <SignUp />,
             path: "/registrarse",
           },
+
           {
             element: <ConfirmAccount />,
             path: "/confirmaccount/:token",
           },
+
           {
             element: <EmailSent />,
             path: "/emailenviado",
+          },
+
+          {
+            element: <ForgotPassword />,
+            path: "/olvide-password",
+          },
+
+          {
+            element: <ForgotPasswordSentEmailSuccess />,
+            path: "/olvide-password-sent-email-success",
+          },
+
+          {
+            element: <ChangePassword />,
+            path: "/cambiar-contrasena/:token",
           },
         ],
       },
