@@ -146,7 +146,7 @@ const CellCustomCredits = ({ dataRow }) => {
       >
         <form onSubmit={handleSubmit}>
           {/* Search User by gmail */}
-          <div className="flex gap-3 items-end">
+          <div className="flex gap-3 items-start">
             <div className="flex-[60%]">
               <InputBox
                 propInput={{
@@ -198,21 +198,29 @@ const CellCustomCredits = ({ dataRow }) => {
           )}
 
           {/* Package that user selected */}
-          <div className="border p-2 rounded-lg mt-4">
-            <div className="bg-primary-light text-primary-dark text-xl rounded-lg w-full text-center overflow-hidden">
+          <div
+            className={`max-w-xs mx-auto border p-2 rounded-lg ${
+              showRequestUserEmail ? "mt-4" : ""
+            }`}
+          >
+            <div className="bg-gray-400/25 text-primary-dark text-xl rounded-lg w-full text-center overflow-hidden">
               <div className="text-end">
-                <span className="bg-primary-color/15 w-fit py-1.5 px-3 inline-flex rounded-l-3xl text-2xl">
+                <span className="bg-gray-400/40 w-fit py-1.5 px-3 inline-flex rounded-l-3xl text-xl">
                   {dataRow?.packagePrice} <span className="text-sm">MXN</span>
                 </span>
               </div>
-              <div className="px-5 pb-5">
-                <p className="font-bold text-2xl">{dataRow.packageName}</p>
+              <div className="px-4">
+                <p className="font-bold text-xl">{dataRow.packageName}</p>
 
-                <p className="text-center text-5xl my-5">
+                <p className="text-center text-2xl my-5">
                   {dataRow?.packageQuantity}
                 </p>
 
-                <p>
+                <p
+                  className={
+                    getUserByEmailMutation?.data?.data?.name ? "pb-0" : "pb-4"
+                  }
+                >
                   Plan{" "}
                   <span className="font-bold">
                     Expira {dataRow?.packageDuration} dias
@@ -223,7 +231,7 @@ const CellCustomCredits = ({ dataRow }) => {
                   disabled={
                     !showRequestUserEmail || assignPackageMutation?.isPending
                   }
-                  className="mt-5 btn w-full font-semibold disabled:bg-primary-color/40"
+                  className="my-5 btn w-full font-semibold disabled:bg-gray-400/25"
                   type="submit"
                 >
                   {assignPackageMutation?.isPending

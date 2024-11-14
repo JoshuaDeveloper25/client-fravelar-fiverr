@@ -45,7 +45,7 @@ const ModalComponent = ({
           <div
             id="default-modal"
             aria-hidden="true"
-            className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 justify-center z-[9999999] items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
+            className="overflow-y-auto items-cnter overflow-x-hidden fixed top-0 right-0 left-0 justify-center z-[9999999] items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full"
           >
             <div
               className="h-[100vh] fixed top-0 w-full bg-black/40"
@@ -54,9 +54,9 @@ const ModalComponent = ({
                 onClose();
               }}
             ></div>
-            <div className="relative p-4 w-full mx-auto mt-20 max-w-lg max-h-full z-40">
+            <div className="relative p-4 w-full mx-auto max-w-lg max-h-full z-40 flex items-center h-full">
               {/* <!-- Modal content --> */}
-              <div className="bg-white rounded-lg shadow text-black z-40 py-5">
+              <div className="bg-white rounded-lg shadow text-black z-40 py-5 w-full max-h-full overflow-y-auto">
                 {/* <!-- Modal header --> */}
                 <div className="relative pt-5">
                   <h3 className="text-3xl font-bold text-gray-700 text-center">
