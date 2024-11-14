@@ -59,13 +59,13 @@ const LogInForm = ({ handleSubmit, isLoading }) => {
               Créala aquí
             </Link>
           </p>
-
+{/* 
           <p className="text-sm">
             Olvidé mi{" "}
             <Link to={`/olvide-password`} className="hover:text-primary-color hover:border-primary-color border-b border-b-gray-700">
               contraseña
             </Link>
-          </p>
+          </p> */}
         </div>
 
         <div>

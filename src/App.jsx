@@ -33,6 +33,7 @@ import ReservedClasses from "./pages/ReservedClasses/ReservedClasses";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import ForgotPasswordSentEmailSuccess from "./pages/ForgotPasswordSentEmailSuccess/ForgotPasswordSentEmailSuccess";
 import ChangePassword from "./pages/ChangePassword/ChangePassword";
+import AssignCredits from "./admin/AssignCredits";
 
 const router = createBrowserRouter([
   {
@@ -175,6 +176,11 @@ const router = createBrowserRouter([
             element: <ManageNews />,
             path: "administrar-noticias",
           },
+
+          {
+            element: <AssignCredits />,
+            path: "asignar-creditos",
+          },
         ],
       },
     ],
@@ -185,7 +191,11 @@ const App = () => {
   return (
     <AppProvider>
       <RouterProvider router={router} />
-      <ToastContainer stacked position="top-center" />
+      <ToastContainer
+        className={"z-[999999999999999]"}
+        position="top-center"
+        stacked
+      />
     </AppProvider>
   );
 };

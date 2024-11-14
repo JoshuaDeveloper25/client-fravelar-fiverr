@@ -25,7 +25,11 @@ body {
   }
 
   .btn {
-    @apply block bg-primary-color text-white rounded-lg p-2;
+    @apply animation-fade block bg-primary-color text-white rounded-lg p-2;
+  }
+
+  .btn:hover {
+    @apply bg-primary-color/40 ;
   }
 
   .input {
@@ -78,4 +82,3 @@ body {
 .shrink:hover img {
   transform: scale(1.2);
 }
-

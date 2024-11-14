@@ -1,16 +1,12 @@
 /* eslint-disable react/prop-types */
-const InputBox = ({ labelTitle, propInput, type = 'text' }) => {
+const InputBox = ({ labelClassname, labelTitle, propInput, type = "text" }) => {
   return (
-    <label className="mb-10 block">
+    <label className={`${labelClassname} mb-10 block`}>
       <span className="block text-lg font-semibold">
-        {labelTitle} {propInput.required && '*'}
+        {labelTitle} {propInput.required && "*"}
       </span>
 
-      <input
-        className="input"
-        type={type}
-        {...propInput}
-      />
+      <input className="input" type={type} {...propInput} />
     </label>
   );
 };

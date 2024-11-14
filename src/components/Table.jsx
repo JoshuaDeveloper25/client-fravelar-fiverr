@@ -9,7 +9,7 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 
-export const Table = ({ columns = [], data = [] }) => {
+export const Table = ({ searchInput = false, columns = [], data = [] }) => {
   const [filtering, setFiltering] = useState("");
   const [sorting, setSorting] = useState([]);
 
@@ -31,7 +31,7 @@ export const Table = ({ columns = [], data = [] }) => {
   return (
     <div className="mt-6 overflow-x-auto">
       {/* --> Input search */}
-      {/* {data?.length !== 0 && (
+      {data?.length !== 0 && searchInput && (
         <>
           <input
             type="search"
@@ -41,7 +41,7 @@ export const Table = ({ columns = [], data = [] }) => {
             placeholder="Name"
           />
         </>
-      )} */}
+      )}
 
       <table className="min-w-[30rem] w-full border-collapse border-spacing-0">
         {/* Head */}
