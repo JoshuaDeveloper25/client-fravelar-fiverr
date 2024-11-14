@@ -164,18 +164,18 @@ const CellCustomCredits = ({ dataRow }) => {
 
             <div className="flex-1">
               <button
-                disabled={getUserByEmailMutation?.isLoading}
+                disabled={getUserByEmailMutation?.isPending}
                 className="mt-5 btn w-full font-semibold disabled:bg-primary-color/40"
                 onClick={handleSearchUserByEmail}
                 type="button"
               >
-                {getUserByEmailMutation?.isLoading ? "Buscando..." : "Buscar"}
+                {getUserByEmailMutation?.isPending ? "Buscando..." : "Buscar"}
               </button>
             </div>
           </div>
 
           {/* In case if the user exists or not */}
-          {getUserByEmailMutation?.isLoading ? (
+          {getUserByEmailMutation?.isPending ? (
             <div className="my-4 h-[28px] animate-pulse bg-primary-light rounded p-1.5 text-center"></div>
           ) : (
             showRequestUserEmail && (
