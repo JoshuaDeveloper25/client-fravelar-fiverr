@@ -7,9 +7,10 @@ const ForgotPasswordForm = ({ handleSubmit, isLoading }) => {
       className="max-w-lg mx-auto rounded shadow-lg space-y-3 px-6 py-6"
     >
       <div>
-        <h3 className="text-xl pb-1 border-b">¿No recuerdas tu contraseña?</h3>
+        <h3 className="text-xl pb-1 border-b">¿Olvidaste tu contraseña?</h3>
         <h4 className="text-sm pt-1 text-black font-bold">
-          Sí no la recuerdas, introduce tu correo electrónico aquí abajo.
+          Para recuperar el acceso, ingresa tu correo electrónico y sigue las
+          instrucciones.
         </h4>
       </div>
 
@@ -28,12 +29,12 @@ const ForgotPasswordForm = ({ handleSubmit, isLoading }) => {
 
       <div>
         <p className="text-sm">
-          Recordé mi{" "}
+          Volver al{" "}
           <Link
             to={`/`}
-            className="hover:text-primary-color hover:border-primary-color border-b border-b-gray-700"
+            className=" hover:text-primary-color hover:border-primary-color border-b border-b-gray-700"
           >
-            contraseña
+            inicio de sesión
           </Link>
         </p>
 

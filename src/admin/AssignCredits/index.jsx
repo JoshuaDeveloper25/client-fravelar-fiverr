@@ -58,20 +58,24 @@ const AssignCredits = () => {
 };
 
 const CellCustomCredits = ({ dataRow }) => {
-  const [showModal, setShowModal] = useState(false);
   const [showRequestUserEmail, setShowRequestUserEmail] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const queryClient = useQueryClient();
   const packageId = dataRow?._id;
 
   // Obtener los usuarios por el mail
-  const getUserByEmailQuery = useQuery({
-    queryKey: ["gotUserByEmail"],
-    queryFn: async () =>
+  const getUserByEmailMutation = useMutation({
+    mutationFn: async () =>
       await axios.get(
         `${import.meta.env.VITE_BASE_URL}/users/get-user-by-email/${userEmail}`
       ),
-    enabled: !!userEmail && showRequestUserEmail,
+    onSuccess: (suc) => {
+      console.log(suc);
+    },
+    onError: (err) => {
+      console.log(err);
+    },
   });
 
   // Asignar paquete
@@ -107,7 +111,7 @@ const CellCustomCredits = ({ dataRow }) => {
     assignPackageMutation?.mutate({
       idPackage: packageId,
       momentDateFrontEnd: moment().format("YYYY-MM-DDTHH:mm:ssZ"),
-      idUser: getUserByEmailQuery?.data?.data?.id,
+      idUser: getUserByEmailMutation?.data?.data?.id,
     });
   };
 
@@ -116,16 +120,14 @@ const CellCustomCredits = ({ dataRow }) => {
     // Form validation
     if (!userEmail.trim(" ")) return toast.error("¡Introduce un gmail!");
 
-    // To refetch the existing users that has a gmail
-    queryClient.invalidateQueries({
-      queryKey: ["gotUserByEmail"],
-    });
-
     setShowRequestUserEmail(true);
+
+    getUserByEmailMutation.mutate();
   };
 
   return (
     <>
+      {/* Botón para abrir modal  */}
       <div className="flex gap-2">
         <button
           onClick={() => setShowModal(true)}
@@ -162,27 +164,27 @@ const CellCustomCredits = ({ dataRow }) => {
 
             <div className="flex-1">
               <button
-                disabled={getUserByEmailQuery?.isLoading}
+                disabled={getUserByEmailMutation?.isLoading}
                 className="mt-5 btn w-full font-semibold disabled:bg-primary-color/40"
                 onClick={handleSearchUserByEmail}
                 type="button"
               >
-                {getUserByEmailQuery?.isLoading ? "Buscando..." : "Buscar"}
+                {getUserByEmailMutation?.isLoading ? "Buscando..." : "Buscar"}
               </button>
             </div>
           </div>
 
           {/* In case if the user exists or not */}
-          {getUserByEmailQuery?.isLoading ? (
+          {getUserByEmailMutation?.isLoading ? (
             <div className="my-4 h-[28px] animate-pulse bg-primary-light rounded p-1.5 text-center"></div>
           ) : (
             showRequestUserEmail && (
               <div className="my-4 bg-primary-light rounded p-1.5 text-center">
-                {getUserByEmailQuery?.status === "success" ? (
+                {getUserByEmailMutation?.status === "success" ? (
                   <h3 className="block text-xl font-semibold">
                     ¡Usuario "
                     <span className="capitalize text-primary-color">
-                      {getUserByEmailQuery?.data?.data?.name}
+                      {getUserByEmailMutation?.data?.data?.name}
                     </span>
                     " Encontrado!
                   </h3>

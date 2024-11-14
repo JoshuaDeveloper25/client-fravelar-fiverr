@@ -43,7 +43,7 @@ const ForgotPassword = () => {
     <section className="py-8">
       <div className="container-page">
         <h3 className="text-4xl text-primary-color font-medium text-center uppercase">
-          Recuperar Contraseña
+          Restrablecer Contraseña
         </h3>
       </div>
 
