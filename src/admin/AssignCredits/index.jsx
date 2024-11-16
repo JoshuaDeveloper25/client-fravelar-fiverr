@@ -153,12 +153,12 @@ const CellCustomCredits = ({ dataRow }) => {
                   name: "searchUser",
                   required: true,
                   type: "search",
-                  placeholder: "johndoe@gmail.com",
+                  placeholder: "correo@ejemplo.com",
                   onChange: (e) => setUserEmail(e?.target?.value),
                   value: userEmail,
                 }}
                 labelClassname={"mb-0"}
-                labelTitle={"Buscar Por Gmail"}
+                labelTitle={"Buscar por correo de usuario"}
               />
             </div>
 
