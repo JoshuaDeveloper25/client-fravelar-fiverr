@@ -62,6 +62,15 @@ const LogIn = () => {
     });
   };
 
+  const handleSubmit2 = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    postImage.mutate(formData);
+
+    console.log("pasamos", image);
+  };
+
   return (
     <section className="py-8">
       <div className="container-page">
@@ -74,29 +83,21 @@ const LogIn = () => {
         <LogInForm handleSubmit={handleSubmit} isLoading={isPending} />
       </article>
 
-      <input
-        type="file"
-        id="file"
-        name="files"
-        onChange={(e) => {
-          const file = e.target.files[0];
-          console.log(file);
-          setImage(file);
-        }}
-      />
+      <form onSubmit={handleSubmit2}>
+        <input
+          type="file"
+          id="file"
+          name="files"
+          multiple
+          // onChange={(e) => {
+          //   const file = e.target.files[0];
+          //   console.log(file);
+          //   setImage(file);
+          // }}
+        />
 
-      <button
-        type="button"
-        onClick={() => {
-          const formData = new FormData();
-          formData.append("files", image);
-          postImage.mutate(formData);
-
-          console.log("pasamos", image);
-        }}
-      >
-        Upload Image
-      </button>
+        <button type="submit">Upload Image</button>
+      </form>
     </section>
   );
 };
