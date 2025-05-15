@@ -5,9 +5,27 @@ import LogInForm from "./components/LogInForm";
 import { toast } from "react-toastify";
 import { useContext } from "react";
 import axios from "axios";
+import { useState } from "react";
 
 const LogIn = () => {
   const { setUserInfo } = useContext(AppContext);
+
+  const [image, setImage] = useState(null);
+
+  const postImage = useMutation({
+    mutationFn: async (postInfo) =>
+      await axios.post(
+        `https://remembered-python-server.onrender.com/api/remembereds/testing-gallery-image`,
+        postInfo
+      ),
+    onSuccess: (res) => {
+      console.log(res);
+      toast.success("Image uploaded successfully");
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
 
   const { data, mutate, error, isPending } = useMutation({
     mutationFn: async (userInfo) =>
@@ -55,6 +73,30 @@ const LogIn = () => {
       <article className="bg-[#F5F5F5] text-gray-700 sm:py-8 py-0 my-4">
         <LogInForm handleSubmit={handleSubmit} isLoading={isPending} />
       </article>
+
+      <input
+        type="file"
+        id="file"
+        name="files"
+        onChange={(e) => {
+          const file = e.target.files[0];
+          console.log(file);
+          setImage(file);
+        }}
+      />
+
+      <button
+        type="button"
+        onClick={() => {
+          const formData = new FormData();
+          formData.append("files", image);
+          postImage.mutate(formData);
+
+          console.log("pasamos", image);
+        }}
+      >
+        Upload Image
+      </button>
     </section>
   );
 };
